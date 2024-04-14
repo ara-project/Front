@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/pages/register.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'My App',
+      home: Scaffold(
+        body: Register(),
+      ),
+    );
   }
 }
