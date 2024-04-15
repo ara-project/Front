@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/entitys/person.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  const Register({super.key});
+
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  String _errorMessage = '';
+
   final TextEditingController _cedulaController = TextEditingController();
   final TextEditingController _primerNombreController = TextEditingController();
   final TextEditingController _segundoNombreController =
@@ -13,15 +22,19 @@ class Register extends StatelessWidget {
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
   final TextEditingController _usuarioController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(236, 117, 35, 1), // Color del fondo
+    double height = MediaQuery.of(context).size.height;
+    return SingleChildScrollView(
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(236, 117, 35, 1), // Color de fondo
         ),
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(0.04 * height),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
@@ -30,61 +43,76 @@ class Register extends StatelessWidget {
               ),
               TextFormField(
                 controller: _cedulaController,
-                decoration: InputDecoration(labelText: 'Cédula'),
+                decoration: returnInputDecoration("Cédula"),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
               TextFormField(
                 controller: _primerNombreController,
-                decoration: InputDecoration(labelText: 'Primer Nombre'),
+                decoration: returnInputDecoration("Primer nombre"),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
               TextFormField(
                 controller: _segundoNombreController,
-                decoration: InputDecoration(labelText: 'Segundo Nombre'),
+                decoration: returnInputDecoration("Segundo nombre"),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
               TextFormField(
                 controller: _primerApellidoController,
-                decoration: InputDecoration(labelText: 'Primer Apellido'),
+                decoration: returnInputDecoration("Primer apellido"),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
               TextFormField(
                 controller: _segundoApellidoController,
-                decoration: InputDecoration(labelText: 'Segundo Apellido'),
+                decoration: returnInputDecoration("Segundo apellido"),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
               TextFormField(
                 controller: _correoController,
-                decoration: InputDecoration(labelText: 'Correo'),
+                decoration: returnInputDecoration("Correo"),
+                validator: (value) {
+                  _errorMessage =
+                      validator(value!) ?? ''; // Update error immediately
+                  return _errorMessage; // Return error message for display
+                },
               ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                controller: _contrasenaController,
-                decoration: InputDecoration(labelText: 'Contrasena'),
-                obscureText: true,
-              ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
               TextFormField(
                 controller: _usuarioController,
-                decoration: InputDecoration(labelText: 'Usuario'),
+                decoration: returnInputDecoration("Usuario"),
+                enableInteractiveSelection: false,
+                onChanged: (text) {},
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: (0.04 * height)),
+              TextFormField(
+                controller: _contrasenaController,
+                decoration: returnInputDecoration("Contraseña"),
+                obscureText: true, // Ocultar el texto de la contraseña
+              ),
+              const Divider(height: 40),
               ElevatedButton(
                 onPressed: () {
                   _register();
                 },
-                child: Text('Registrarse'),
+                child: const Text('Registrarse'),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   _signInWithGoogle();
                 },
-                child: Text('Iniciar sesión con Google'),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add_business_sharp),
+                    Text("Iniciar sesión con Google")
+                  ],
+                ),
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   void _register() {
@@ -109,21 +137,32 @@ class Register extends StatelessWidget {
       contrasena: contrasena,
       usuario: usuario,
     );
-
-    // Aquí puedes hacer cualquier cosa con la nueva persona, como enviarla a un servidor
-    // En este ejemplo, simplemente imprimimos los valores
-    print('Cédula: ${nuevaPersona.cedula}');
-    print('Primer Nombre: ${nuevaPersona.primerNombre}');
-    print('Segundo Nombre: ${nuevaPersona.segundoNombre}');
-    print('Primer Apellido: ${nuevaPersona.primerApellido}');
-    print('Segundo Apellido: ${nuevaPersona.segundoApellido}');
-    print('Correo: ${nuevaPersona.correo}');
-    print('Contrasena: ${nuevaPersona.contrasena}');
-    print('Usuario: ${nuevaPersona.usuario}');
   }
 
   void _signInWithGoogle() {
     // Implementa la lógica para iniciar sesión con Google aquí
     print('Iniciar sesión con Google');
+  }
+
+  InputDecoration returnInputDecoration(String data) {
+    return InputDecoration(
+      fillColor: Colors.white,
+      filled: true,
+      border: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black), // Color del borde
+      ),
+      labelText: data,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
+
+      // Ajusta el espacio interior del campo de entrada
+    );
+  }
+
+  validator(String? value) {
+    return (value != null && value.contains('@'))
+        ? 'Do not use the @ char.'
+        : null;
   }
 }
