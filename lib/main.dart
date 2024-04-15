@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      routes: {'/register': (context) => const Register()},
       title: 'Ara app',
       home: Scaffold(
         body:

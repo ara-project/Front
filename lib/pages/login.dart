@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/pages/register.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -47,8 +48,15 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: (0.04 * height)),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
                         child: const Text('Registrarse'),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Iniciar sesion'),
                       ),
                       SizedBox(height: (0.04 * height)),
                       ElevatedButton(

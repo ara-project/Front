@@ -26,7 +26,8 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
+    return Scaffold(
+        body: SingleChildScrollView(
       child: Container(
         decoration: const BoxDecoration(
           color: Color.fromRGBO(236, 117, 35, 1), // Color de fondo
@@ -69,11 +70,6 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 controller: _correoController,
                 decoration: returnInputDecoration("Correo"),
-                validator: (value) {
-                  _errorMessage =
-                      validator(value!) ?? ''; // Update error immediately
-                  return _errorMessage; // Return error message for display
-                },
               ),
               SizedBox(height: (0.04 * height)),
               TextFormField(
@@ -98,6 +94,13 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
+                  _register();
+                },
+                child: const Text('Iniciar sesion'),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
                   _signInWithGoogle();
                 },
                 child: const Row(
@@ -112,7 +115,7 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   void _register() {
@@ -153,16 +156,7 @@ class _RegisterState extends State<Register> {
       ),
       labelText: data,
       floatingLabelBehavior: FloatingLabelBehavior.never,
-      contentPadding:
-          const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
-
       // Ajusta el espacio interior del campo de entrada
     );
-  }
-
-  validator(String? value) {
-    return (value != null && value.contains('@'))
-        ? 'Do not use the @ char.'
-        : null;
   }
 }
