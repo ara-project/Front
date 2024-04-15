@@ -29,6 +29,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
+        height: height,
         decoration: const BoxDecoration(
           color: Color.fromRGBO(236, 117, 35, 1), // Color de fondo
         ),
@@ -40,45 +41,36 @@ class _RegisterState extends State<Register> {
             children: [
               Image.asset(
                 'assets/aralog.png',
-                height: 40,
+                height: 0.15 * height,
               ),
               TextFormField(
+                style: TextStyle(height: 1),
                 controller: _cedulaController,
                 decoration: returnInputDecoration("Cédula"),
               ),
-              SizedBox(height: (0.04 * height)),
+              SizedBox(height: (0.02 * height)),
               TextFormField(
                 controller: _primerNombreController,
-                decoration: returnInputDecoration("Primer nombre"),
+                decoration: returnInputDecoration("Nombres"),
               ),
-              SizedBox(height: (0.04 * height)),
-              TextFormField(
-                controller: _segundoNombreController,
-                decoration: returnInputDecoration("Segundo nombre"),
-              ),
-              SizedBox(height: (0.04 * height)),
+              SizedBox(height: (0.02 * height)),
               TextFormField(
                 controller: _primerApellidoController,
-                decoration: returnInputDecoration("Primer apellido"),
+                decoration: returnInputDecoration("Apellidos"),
               ),
-              SizedBox(height: (0.04 * height)),
-              TextFormField(
-                controller: _segundoApellidoController,
-                decoration: returnInputDecoration("Segundo apellido"),
-              ),
-              SizedBox(height: (0.04 * height)),
+              SizedBox(height: (0.02 * height)),
               TextFormField(
                 controller: _correoController,
                 decoration: returnInputDecoration("Correo"),
               ),
-              SizedBox(height: (0.04 * height)),
+              SizedBox(height: (0.02 * height)),
               TextFormField(
                 controller: _usuarioController,
                 decoration: returnInputDecoration("Usuario"),
                 enableInteractiveSelection: false,
                 onChanged: (text) {},
               ),
-              SizedBox(height: (0.04 * height)),
+              SizedBox(height: (0.02 * height)),
               TextFormField(
                 controller: _contrasenaController,
                 decoration: returnInputDecoration("Contraseña"),
@@ -94,19 +86,17 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  _register();
-                },
-                child: const Text('Iniciar sesion'),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
                   _signInWithGoogle();
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add_business_sharp),
+                    Image.asset(
+                      'assets/googlelog.png',
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(height: 5),
                     Text("Iniciar sesión con Google")
                   ],
                 ),
@@ -152,8 +142,8 @@ class _RegisterState extends State<Register> {
       fillColor: Colors.white,
       filled: true,
       border: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black), // Color del borde
-      ),
+          borderSide: BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       labelText: data,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       // Ajusta el espacio interior del campo de entrada

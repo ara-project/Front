@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:front_ara/pages/register.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,61 +16,66 @@ class _LoginState extends State<Login> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return SingleChildScrollView(
-        child: Container(
-            height: height,
-            width: width,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                    stops: [0.7, 0.2],
-                    colors: [Color.fromRGBO(236, 117, 35, 1), Colors.white])),
-            child: Padding(
-                padding: const EdgeInsets.all(40),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/aralog.png',
-                        height: height * 0.2,
-                      ),
-                      SizedBox(height: (0.04 * height)),
-                      TextFormField(
-                        controller: _correoController,
-                        decoration: returnInputDecoration("Correo"),
-                      ),
-                      SizedBox(height: (0.04 * height)),
-                      TextFormField(
-                        controller: _contrasenaController,
-                        decoration: returnInputDecoration("Contraseña"),
-                      ),
-                      SizedBox(height: (0.04 * height)),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/register');
-                        },
-                        child: const Text('Registrarse'),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Iniciar sesion'),
-                      ),
-                      SizedBox(height: (0.04 * height)),
-                      ElevatedButton(
-                        onPressed: () {
-                          _signInWithGoogle();
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.add_business_sharp),
-                            Text("Iniciar sesión con Google")
-                          ],
-                        ),
-                      ),
-                    ]))));
+    return Scaffold(
+        body: SingleChildScrollView(
+            child: Container(
+                height: height,
+                width: width,
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: AlignmentDirectional.topStart,
+                        end: AlignmentDirectional.bottomEnd,
+                        stops: [
+                      0.7,
+                      0.2
+                    ],
+                        colors: [
+                      Color.fromRGBO(236, 117, 35, 1),
+                      Colors.white
+                    ])),
+                child: Padding(
+                    padding: const EdgeInsets.all(40),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'assets/aralog.png',
+                            height: height * 0.2,
+                          ),
+                          SizedBox(height: (0.04 * height)),
+                          TextFormField(
+                            controller: _correoController,
+                            decoration: returnInputDecoration("Correo"),
+                          ),
+                          SizedBox(height: (0.04 * height)),
+                          TextFormField(
+                            controller: _contrasenaController,
+                            decoration: returnInputDecoration("Contraseña"),
+                          ),
+                          SizedBox(height: (0.04 * height)),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Iniciar sesion'),
+                          ),
+                          SizedBox(height: (0.04 * height)),
+                          ElevatedButton(
+                            onPressed: () {
+                              _signInWithGoogle();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/googlelog.png',
+                                  width: 24,
+                                  height: 24,
+                                ),
+                                Text("Iniciar sesión con Google")
+                              ],
+                            ),
+                          ),
+                        ])))));
   }
 
   void _signInWithGoogle() {

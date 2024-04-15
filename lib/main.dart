@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/pages/login.dart';
+import 'package:front_ara/pages/mainpage.dart';
 import 'package:front_ara/pages/register.dart';
 
 void main() {
@@ -13,11 +14,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {'/register': (context) => const Register()},
+      routes: {
+        '/register': (context) => const Register(),
+        '/login': (context) => const Login()
+      },
       title: 'Ara app',
       home: Scaffold(
         body:
-            Login(), // Suponiendo que tienes una pantalla de inicio de sesión llamada Login
+            MainPage(), // Suponiendo que tienes una pantalla de inicio de sesión llamada Login
       ),
     );
   }
