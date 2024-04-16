@@ -7,8 +7,7 @@ class Perfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
       title: const Text("Información del perfil"),
-      backgroundColor: const Color.fromARGB(255, 238, 32, 17)
-    ),
+      backgroundColor: const Color.fromARGB(255, 238, 32, 17)),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -25,50 +24,51 @@ class Perfil extends StatelessWidget {
                 ),
               ],
             ),
-            Text('Daniel'),
-              Row(children: [
-                Icon(
-                  Icons.supervised_user_circle_rounded,
-                  color: Colors.black,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Cédula",style: TextStyle(fontSize: 30),),
-                      Text("1233323",style: TextStyle(fontSize: 30)),
-                      ],
-
-                  ),
-                  ]
-                 ),
+            Text('Rosé'),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.supervised_user_circle_rounded,
+                    color: Colors.black,
+                    ),
+                    SizedBox(width: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Cédula"),
+                        Text("1233323"),
+                        ],
+                      ),
+                      SizedBox(width: 20,)],
+                      ),
+                   SizedBox(height: 20),
                  Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.supervised_user_circle_rounded,
-                
-                color: Colors.black,
-              ),
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.supervised_user_circle_rounded,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 20), // Espacio entre la imagen y el texto
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Nombre"),
+                              Text("Rosé"),
+                              Text("Apellido"),
+                              Text("Rodriguez Perez")
+                            ],
+                      ),
+                  ],),
+                  Row()
             ],
           ),
-          SizedBox(width: 20), // Espacio entre la imagen y el texto
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Nombre"),
-              Text("Rosé"),
-              Text("Apellido"),
-              Text("Rodriguez Perez")
-            ],
-          ),
-        ],
-      ),
-          ],
-        ),
-      ),
-          
-    );
+        ),    
+      );
   }
 }
