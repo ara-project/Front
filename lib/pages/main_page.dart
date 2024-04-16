@@ -36,7 +36,7 @@ class MainPageState extends State<MainPage> {
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/login');
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Iniciar Sesión',
                                   style: TextStyle(
                                     color: Colors.black,

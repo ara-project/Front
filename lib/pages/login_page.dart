@@ -10,7 +10,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  List<String> _scopes = <String>[
+  final List<String> _scopes = <String>[
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
   ];
@@ -88,7 +88,7 @@ class _LoginState extends State<Login> {
                                   width: 24,
                                   height: 24,
                                 ),
-                                Text("Iniciar sesión con Google")
+                                const Text("Iniciar sesión con Google")
                               ],
                             ),
                           ),
