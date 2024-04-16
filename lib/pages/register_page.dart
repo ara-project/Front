@@ -43,8 +43,8 @@ class _RegisterState extends State<Register> {
                 'assets/aralog.png',
                 height: 0.15 * height,
               ),
+              SizedBox(height: (0.02 * height)),
               TextFormField(
-                style: TextStyle(height: 1),
                 controller: _cedulaController,
                 decoration: returnInputDecoration("Cédula"),
               ),
@@ -97,7 +97,7 @@ class _RegisterState extends State<Register> {
                       height: 24,
                     ),
                     const SizedBox(height: 5),
-                    Text("Iniciar sesión con Google")
+                    Text("Registrate con Google")
                   ],
                 ),
               ),
@@ -143,7 +143,7 @@ class _RegisterState extends State<Register> {
       filled: true,
       border: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black),
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+          borderRadius: BorderRadius.all(Radius.circular(0))),
       labelText: data,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       // Ajusta el espacio interior del campo de entrada

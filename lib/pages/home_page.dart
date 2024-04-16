@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
+import 'package:front_ara/entitys/product.dart';
 import 'package:front_ara/widgets/categoryW.dart';
 import 'package:front_ara/widgets/productsW.dart';
+import 'package:http/http.dart' as http;
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -10,6 +14,14 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  late List<Product> _fetchDataFuture = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -66,8 +78,33 @@ class _homeState extends State<home> {
                   ),
                 ),
                 Divider(),
-                productW()
+                productW(
+                  products: _fetchDataFuture,
+                )
               ],
             )));
+  }
+
+  fetchData() async {
+    var url = Uri.parse('http://192.168.1.33:80/Product');
+
+    try {
+      var response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(response.body);
+        setState(() {
+          _fetchDataFuture =
+              jsonData.map((json) => Product.fromJson(json)).toList();
+        });
+        developer.log(jsonDecode(response.body).toString());
+      } else {
+        // La solicitud falló con un código de estado no 200
+
+        ('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      developer.log('Error de conexión: $e');
+    }
   }
 }
