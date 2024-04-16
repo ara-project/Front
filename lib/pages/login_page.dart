@@ -95,12 +95,14 @@ class _LoginState extends State<Login> {
                         ])))));
   }
 
-  Future<void> _signInWithGoogle() async {
-    await _googleSignIn.signIn();
+  _signInWithGoogle() {
+    Navigator.pushNamed(context, '/home');
+
+    /*  await _googleSignIn.signIn();
     final bool isAuthorized = await _googleSignIn.requestScopes(_scopes);
     if (isAuthorized) {
       print("hola");
-    }
+    }*/
   }
 
   InputDecoration returnInputDecoration(String data) {

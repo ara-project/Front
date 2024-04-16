@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:front_ara/pages/login.dart';
-import 'package:front_ara/pages/mainpage.dart';
-import 'package:front_ara/pages/register.dart';
+import 'package:front_ara/pages/home_page.dart';
+import 'package:front_ara/pages/login_page.dart';
+import 'package:front_ara/pages/main_page.dart';
+import 'package:front_ara/pages/register_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/register': (context) => const Register(),
         '/login': (context) => const Login(),
-        '/perfil': (context) => const Perfil()
+        '/perfil': (context) => const Perfil(),
+        '/home': (context) => const home()
       },
       title: 'Ara app',
       home: Scaffold(
