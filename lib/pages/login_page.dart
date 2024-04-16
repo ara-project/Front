@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,6 +10,19 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  List<String> _scopes = <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ];
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    // Optional clientId
+    serverClientId:
+        '521082561398-dp8rgoob5mf0bvhpp40q8gltcjke56eh.apps.googleusercontent.com',
+    scopes: <String>[
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
 
@@ -57,7 +71,7 @@ class _LoginState extends State<Login> {
                           SizedBox(height: (0.04 * height)),
                           ElevatedButton(
                             onPressed: () {
-                               Navigator.pushNamed(context,'/perfil');
+                              Navigator.pushNamed(context, '/perfil');
                             },
                             child: const Text('Iniciar sesion'),
                           ),
@@ -81,9 +95,14 @@ class _LoginState extends State<Login> {
                         ])))));
   }
 
-  void _signInWithGoogle() {
-    // Implementa la lógica para iniciar sesión con Google aquí
-    print('Iniciar sesión con Google');
+  _signInWithGoogle() {
+    Navigator.pushNamed(context, '/home');
+
+    /*  await _googleSignIn.signIn();
+    final bool isAuthorized = await _googleSignIn.requestScopes(_scopes);
+    if (isAuthorized) {
+      print("hola");
+    }*/
   }
 
   InputDecoration returnInputDecoration(String data) {

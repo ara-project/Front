@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -49,7 +46,7 @@ class MainPageState extends State<MainPage> {
                             const SizedBox(width: 10),
                             ElevatedButton(
                               onPressed: () {
-                                 Navigator.pushNamed(context,'/register');
+                                Navigator.pushNamed(context, '/register');
                               },
                               child: const Text(
                                 'Regístrarte',
