@@ -65,7 +65,6 @@ class Perfil extends StatelessWidget {
                             ],
                       ),
                   ],),
-                  Row()
             ],
           ),
         ),    
