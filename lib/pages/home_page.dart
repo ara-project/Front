@@ -3,7 +3,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:front_ara/widgets/categoryW.dart';
-import 'package:front_ara/widgets/productsW.dart';
+import 'package:front_ara/widgets/ProductsW.dart';
 import 'package:http/http.dart' as http;
 
 class home extends StatefulWidget {
@@ -78,7 +78,7 @@ class _homeState extends State<home> {
                   ),
                 ),
                 Divider(),
-                productW(
+                ProductW(
                   products: _fetchDataFuture,
                 )
               ],
