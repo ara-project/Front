@@ -86,7 +86,7 @@ class _homeState extends State<home> {
   }
 
   fetchData() async {
-    var url = Uri.parse('http://192.168.1.33:80/Product');
+    var url = Uri.parse('http://10.0.0.9:8080/Product');
 
     try {
       var response = await http.get(url);
