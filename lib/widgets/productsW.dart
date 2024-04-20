@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front_ara/entitys/product.dart';
+import 'dart:developer' as developer;
 
-class ProductW extends StatelessWidget {
+import 'package:money2/money2.dart';
+
+class ProductsW extends StatelessWidget {
   List<Product> products;
-  ProductW({Key? key, required this.products}) : super(key: key);
+  Function(Product) addProduct;
+  ProductsW({Key? key, required this.products, required this.addProduct});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 6,
+      flex: 5,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: products.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
-              print('Tapped on ${products[index].name}');
-            },
+            onTap: () {},
             child: Row(
               children: [
                 _buildProductImage(products[index].img_src),
@@ -40,10 +42,15 @@ class ProductW extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          '\$${products[index].price.toString()}',
+                          '${Money.parseWithCurrency(products[index].price.toString(), Currency.create('USD', 2)).format('S###,###')}',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                         ),
+                        IconButton(
+                            onPressed: () {
+                              addProduct(products[index]);
+                            },
+                            icon: Icon(Icons.add))
                       ],
                     ))
               ],

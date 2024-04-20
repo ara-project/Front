@@ -116,8 +116,6 @@ class _LoginState extends State<Login> {
       floatingLabelBehavior: FloatingLabelBehavior.never,
       contentPadding:
           const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
-
-      // Ajusta el espacio interior del campo de entrada
     );
   }
 }

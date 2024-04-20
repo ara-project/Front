@@ -1,0 +1,19 @@
+import 'dart:convert';
+
+class Category {
+  int id_category = 0;
+  String name = '';
+  String imgSrc = '';
+
+  Category(
+      {required this.id_category, required this.name, required this.imgSrc}) {}
+
+  factory Category.fromJson(Map<String, dynamic> json) {
+    var encoded = latin1.encode(json['category'].toString());
+    var categoryDecoded = utf8.decode(encoded);
+    return Category(
+        id_category: json['id_category'] ?? 0,
+        name: categoryDecoded,
+        imgSrc: json['imgSrc'] ?? 0);
+  }
+}

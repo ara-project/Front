@@ -5,7 +5,7 @@ import 'package:front_ara/pages/main_page.dart';
 import 'package:front_ara/pages/register_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
