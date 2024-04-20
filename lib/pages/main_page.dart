@@ -34,7 +34,7 @@ class MainPageState extends State<MainPage> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/login');
+                                  Navigator.pushNamed(context, '/detalles');
                                 },
                                 child: Text(
                                   'Iniciar Sesión',
