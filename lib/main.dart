@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:front_ara/pages/factura.dart';
 import 'package:front_ara/pages/home_page.dart';
 import 'package:front_ara/pages/login_page.dart';
 import 'package:front_ara/pages/main_page.dart';
@@ -22,10 +21,9 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const Login(),
         '/perfil': (context) => const Perfil(),
         '/home': (context) => const home(),
-        '/detalles':(context) => const Factura()
       },
       title: 'Ara app',
-      home: Scaffold(
+      home: const Scaffold(
         body: MainPage(),
       ),
     );

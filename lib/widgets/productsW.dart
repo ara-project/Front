@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front_ara/entitys/product.dart';
+import 'package:front_ara/pages/detail_page.dart';
 import 'dart:developer' as developer;
 
 import 'package:money2/money2.dart';
@@ -19,11 +20,18 @@ class ProductsW extends StatelessWidget {
         itemCount: products.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Detailproduct(product: products[index]),
+                ),
+              );
+            },
             child: Row(
               children: [
                 _buildProductImage(products[index].img_src),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Container(
@@ -36,13 +44,17 @@ class ProductsW extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           textAlign: TextAlign.start,
-                          style: TextStyle(fontWeight: FontWeight.w800),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 20),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          '${Money.parseWithCurrency(products[index].price.toString(), Currency.create('USD', 2)).format('S###,###')}',
+                          Money.parseWithCurrency(
+                                  products[index].price.toString(),
+                                  Currency.create('USD', 2))
+                              .format('S###,###'),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                         ),
