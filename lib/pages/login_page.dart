@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:front_ara/controllers/oauthC.dart';
+import 'dart:developer' as developer;
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
@@ -10,19 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final List<String> _scopes = <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ];
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    // Optional clientId
-    serverClientId:
-        '521082561398-dp8rgoob5mf0bvhpp40q8gltcjke56eh.apps.googleusercontent.com',
-    scopes: <String>[
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  oauthC oauht = new oauthC();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
 
@@ -92,17 +82,41 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           ),
+                          IconButton(
+                              onPressed: () => {logout()},
+                              icon: Icon(Icons.abc))
                         ])))));
   }
 
-  _signInWithGoogle() {
-    Navigator.pushNamed(context, '/home');
+  // Navigator.pushNamed(context, '/home');
 
-    /*  await _googleSignIn.signIn();
-    final bool isAuthorized = await _googleSignIn.requestScopes(_scopes);
-    if (isAuthorized) {
-      print("hola");
-    }*/
+  _signInWithGoogle() async {
+    try {
+      oauht.siging();
+/*
+      // Iniciar sesión con Google
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser != null) {
+        // Se obtuvo exitosamente el usuario de Google
+
+        // Ahora puedes obtener la información del usuario si lo necesitas
+        developer.log('Nombre: ${googleUser.displayName}');
+        developer.log('Email: ${googleUser.email}');
+
+        // Aquí puedes pasar al siguiente paso de tu aplicación, como navegar a una nueva pantalla
+      } else {
+        // El usuario canceló el inicio de sesión
+        developer.log('Inicio de sesión con Google cancelado.');
+      }*/
+    } catch (error) {
+      // Error durante el inicio de sesión con Google
+      developer.log('Error al iniciar sesión con Google: $error');
+    }
+  }
+
+  logout() async {
+    _googleSignIn.disconnect();
   }
 
   InputDecoration returnInputDecoration(String data) {

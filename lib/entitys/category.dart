@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:front_ara/config.dart';
 
 class Category {
   int id_category = 0;
@@ -16,4 +18,6 @@ class Category {
         name: categoryDecoded,
         imgSrc: json['imgSrc'] ?? 0);
   }
+
+  
 }
