@@ -10,19 +10,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final List<String> _scopes = <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ];
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    // Optional clientId
-    serverClientId:
-        '521082561398-dp8rgoob5mf0bvhpp40q8gltcjke56eh.apps.googleusercontent.com',
-    scopes: <String>[
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+
+
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
 
