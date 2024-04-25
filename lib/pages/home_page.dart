@@ -151,11 +151,8 @@ class _homeState extends State<home> {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return Container(
-                                      width: 20,
-                                      height: 20,
-                                      child: Center(
-                                        child: Text('flotante'),
+                                    return Container(                                      child: Center(
+                                        child: Text(res),
                                       ),
                                     );
                                   });

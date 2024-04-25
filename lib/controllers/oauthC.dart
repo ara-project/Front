@@ -1,36 +1,51 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:front_ara/controllers/personaC.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class oauthC {
   personaC personasC = new personaC();
-  siging() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
+  logout() async {
+    developer.log(_googleSignIn.currentUser.toString());
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    developer.log(prefs.getString('token').toString());
+
+    if (_googleSignIn.currentUser != null) {
+      _googleSignIn.disconnect();
+      developer.log(prefs.getString('token').toString());
+    }
+  }
+
+  Future<bool> siging() async {
+    final prefs = await SharedPreferences.getInstance();
+    developer.log(prefs.getString('token').toString());
+    if (await prefs.getString('token') != null) {
+      return true;
+    }
 
     try {
       // Iniciar sesión con Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser != null) {
-        // Se obtuvo exitosamente el usuario de Google
-        // Ahora puedes obtener la información del usuario si lo necesitas
-        developer.log('Nombre: ${googleUser.displayName}');
+        developer.log('Nombre: ${googleUser.id}');
         developer.log('Email: ${googleUser.email}');
-        personasC.login(googleUser);
-        return googleUser;
-        // Aquí puedes pasar al siguiente paso de tu aplicación, como navegar a una nueva pantalla
+        String s = await personasC.login(googleUser);
+        developer.log(s);
+        return s != '' ? true : false;
       } else {
-        // El usuario canceló el inicio de sesión
         developer.log('Inicio de sesión con Google cancelado.');
-        return null;
+        return false;
       }
     } catch (error) {
-      // Error durante el inicio de sesión con Google
       developer.log('Error al iniciar sesión con Google: $error');
 
-      return null;
+      return false;
     }
   }
 }

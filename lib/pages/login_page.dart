@@ -92,23 +92,11 @@ class _LoginState extends State<Login> {
 
   _signInWithGoogle() async {
     try {
-      oauht.siging();
-/*
-      // Iniciar sesión con Google
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      bool n = await oauht.siging();
 
-      if (googleUser != null) {
-        // Se obtuvo exitosamente el usuario de Google
-
-        // Ahora puedes obtener la información del usuario si lo necesitas
-        developer.log('Nombre: ${googleUser.displayName}');
-        developer.log('Email: ${googleUser.email}');
-
-        // Aquí puedes pasar al siguiente paso de tu aplicación, como navegar a una nueva pantalla
-      } else {
-        // El usuario canceló el inicio de sesión
-        developer.log('Inicio de sesión con Google cancelado.');
-      }*/
+      if (n) {
+        Navigator.pushNamed(context, '/home');
+      }
     } catch (error) {
       // Error durante el inicio de sesión con Google
       developer.log('Error al iniciar sesión con Google: $error');
@@ -116,7 +104,7 @@ class _LoginState extends State<Login> {
   }
 
   logout() async {
-    _googleSignIn.disconnect();
+    await oauht.logout();
   }
 
   InputDecoration returnInputDecoration(String data) {
