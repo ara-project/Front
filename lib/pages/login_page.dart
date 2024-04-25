@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:front_ara/controllers/oauthC.dart';
+import 'dart:developer' as developer;
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
@@ -10,8 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  oauthC oauht = new oauthC();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
 
@@ -81,17 +82,29 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           ),
+                          IconButton(
+                              onPressed: () => {logout()},
+                              icon: Icon(Icons.abc))
                         ])))));
   }
 
-  _signInWithGoogle() {
-    Navigator.pushNamed(context, '/home');
+  // Navigator.pushNamed(context, '/home');
 
-    /*  await _googleSignIn.signIn();
-    final bool isAuthorized = await _googleSignIn.requestScopes(_scopes);
-    if (isAuthorized) {
-      print("hola");
-    }*/
+  _signInWithGoogle() async {
+    try {
+      bool n = await oauht.siging();
+
+      if (n) {
+        Navigator.pushNamed(context, '/home');
+      }
+    } catch (error) {
+      // Error durante el inicio de sesión con Google
+      developer.log('Error al iniciar sesión con Google: $error');
+    }
+  }
+
+  logout() async {
+    await oauht.logout();
   }
 
   InputDecoration returnInputDecoration(String data) {

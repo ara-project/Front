@@ -24,7 +24,10 @@ class ProductsW extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Detailproduct(product: products[index]),
+                  builder: (context) => Detailproduct(
+                    product: products[index],
+                    addProduct: addProduct,
+                  ),
                 ),
               );
             },

@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_sign_in: ^6.2.1
   money2: ^5.0.1
+  simple_barcode_scanner: ^0.1.1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
