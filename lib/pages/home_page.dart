@@ -24,6 +24,8 @@ class _homeState extends State<home> {
   Map<Product, int> shoppingCart = {};
   ProductC productc = ProductC();
   CategoryC categoryc = CategoryC();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +39,11 @@ class _homeState extends State<home> {
     SearchController __controller = SearchController();
 
     return Scaffold(
+        drawerEnableOpenDragGesture: false,
+        key: _scaffoldKey,
+        drawer: Drawer(),
         appBar: AppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: height * 0.10,
             leadingWidth: width,
             leading: Container(
@@ -48,7 +54,8 @@ class _homeState extends State<home> {
                 child: Row(
                   children: [
                     IconButton(
-                        onPressed: () => {}, icon: const Icon(Icons.reorder)),
+                        onPressed: () => {_openDrawer()},
+                        icon: Icon(Icons.menu)),
                     Container(
                       height: height * 0.05,
                       width: width * 0.6,
@@ -151,7 +158,8 @@ class _homeState extends State<home> {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return Container(                                      child: Center(
+                                    return Container(
+                                      child: Center(
                                         child: Text(res),
                                       ),
                                     );
@@ -181,7 +189,7 @@ class _homeState extends State<home> {
                         onCategorySelected: (Category selectCategory) =>
                             {fetchDataCategory(selectCategory)},
                       )
-                    : CircularProgressIndicator(),
+                    : const CircularProgressIndicator(),
                 SizedBox(height: (0.04 * height)),
                 Container(
                   alignment: AlignmentDirectional.topStart,
@@ -197,7 +205,7 @@ class _homeState extends State<home> {
                             {addProductShoppingCart(producto)},
                         products: _fetchDataFuture,
                       )
-                    : Expanded(
+                    : const Expanded(
                         flex: 5,
                         child: Center(
                           child: CircularProgressIndicator(),
@@ -205,6 +213,10 @@ class _homeState extends State<home> {
                       )
               ],
             )));
+  }
+
+  void _openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
   }
 
   void addProductShoppingCart(Product p) {
