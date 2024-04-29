@@ -77,6 +77,52 @@ class personaC {
       return '3';
     }
   }
+
+  Future<String> register(Personas p) async {
+    var url = Uri.parse('${MyConfig.uri}/personas/register');
+    var body = jsonEncode({
+      "dni": p.cedula,
+      "identification": p.identification,
+      "name": p.primerNombre,
+      "secondName": p.segundoNombre,
+      "lastname": p.primerApellido,
+      "secondLastname": p.segundoApellido,
+      "email": p.correo,
+      "role": "CUSTOMER",
+      "password": p.contrasena,
+      "enabled": true,
+    });
+    developer.log('todo bien: ${body}');
+
+    try {
+      var response = await http.post(
+        url,
+        body: body,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        dynamic jsonData = jsonDecode(response.body);
+
+        developer.log('todo bien: ${response.statusCode}');
+
+        return '1';
+      } else {
+        if (response.statusCode == 450) {
+          developer.log('ya existe: ${response.statusCode}');
+
+          return '2';
+        }
+        developer.log('Error: ${response.statusCode}');
+        return '3';
+      }
+    } catch (e) {
+      developer.log('Error de conexión aqui: $e');
+      return '3';
+    }
+  }
 }
 
 

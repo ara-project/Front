@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/oauthC.dart';
+import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/person.dart';
 import 'dart:developer' as developer;
 
@@ -24,7 +25,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
   final TextEditingController _usuarioController = TextEditingController();
-
+  personaC personac = personaC();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -110,7 +111,7 @@ class _RegisterState extends State<Register> {
     ));
   }
 
-  void _register() {
+  void _register() async {
     // Recuperar valores de los campos
     String cedula = _cedulaController.text;
     String primerNombre = _primerNombreController.text;
@@ -121,7 +122,6 @@ class _RegisterState extends State<Register> {
     String contrasena = _contrasenaController.text;
     String usuario = _usuarioController.text;
 
-    // Crear una nueva instancia de Persona
     Personas nuevaPersona = Personas(
       cedula: cedula,
       primerNombre: primerNombre,
@@ -132,6 +132,22 @@ class _RegisterState extends State<Register> {
       contrasena: contrasena,
       usuario: usuario,
     );
+    var s = await personac.register(nuevaPersona);
+    switch (s) {
+      case '1':
+        developer.log('Inicio de sesion exitoso');
+        Navigator.pushNamed(context, '/home');
+        break;
+      case '2':
+        developer.log('Usuario ya existe');
+        Navigator.pushNamed(context, '/home');
+        break;
+      case '3':
+        break;
+
+      default:
+        break;
+    }
   }
 
   void _signInWithGoogle() async {

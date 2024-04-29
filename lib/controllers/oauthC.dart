@@ -30,7 +30,6 @@ class oauthC {
     }
 
     try {
-      // Iniciar sesión con Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser != null) {
