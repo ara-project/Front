@@ -11,7 +11,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String _errorMessage = '';
+  //String _errorMessage = '';
   oauthC oauthc = oauthC();
 
   final TextEditingController _cedulaController = TextEditingController();
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
                       height: 24,
                     ),
                     const SizedBox(height: 5),
-                    Text("Registrate con Google")
+                    const Text("Registrate con Google")
                   ],
                 ),
               ),

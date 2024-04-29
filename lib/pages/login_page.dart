@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/oauthC.dart';
+import 'package:front_ara/controllers/personaC.dart';
 import 'dart:developer' as developer;
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -11,7 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  personaC personac = personaC();
   oauthC oauht = new oauthC();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
@@ -61,7 +62,7 @@ class _LoginState extends State<Login> {
                           SizedBox(height: (0.04 * height)),
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/perfil');
+                              Login();
                             },
                             child: const Text('Iniciar sesion'),
                           ),
@@ -89,6 +90,13 @@ class _LoginState extends State<Login> {
   }
 
   // Navigator.pushNamed(context, '/home');
+  Login() async {
+    var s = await personac.loginN(
+        _correoController.text, _contrasenaController.text);
+    if (s == 1) {
+      Navigator.pushNamed(context, '/home');
+    }
+  }
 
   _signInWithGoogle() async {
     try {

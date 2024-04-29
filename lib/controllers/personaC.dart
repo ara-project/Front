@@ -34,6 +34,37 @@ class personaC {
     }
   }
 
+  Future<String> loginN(String username, String password) async {
+    var url = Uri.parse('${MyConfig.uri}/auth/authenticate');
+    var body = jsonEncode({"username": username, "password": password});
+    try {
+      var response = await http.post(
+        url,
+        body: body,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (response.statusCode == 200) {
+        dynamic jsonData = jsonDecode(response.body);
+        developer.log(jsonData['token'].toString());
+
+        String token = jsonData['token'];
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        return '1';
+      } else {
+        developer.log('Error: ${response.body}');
+        return '';
+      }
+    } catch (e) {
+      developer.log('Error de conexión aqui: $e');
+      return '';
+    }
+  }
+
   Future<String> registerG(Personas p) async {
     var url = Uri.parse('${MyConfig.uri}/Oauth/register');
     var body = jsonEncode({
@@ -46,7 +77,7 @@ class personaC {
       "role": "CUSTOMER",
       "enabled": true,
     });
-    developer.log('todo bien: ${body}');
+    developer.log('todo bien: ${body.toString()}');
 
     try {
       var response = await http.post(
@@ -60,7 +91,7 @@ class personaC {
       if (response.statusCode == 200) {
         dynamic jsonData = jsonDecode(response.body);
 
-        developer.log('todo bien: ${response.statusCode}');
+        developer.log('todo bien: ${jsonData}');
 
         return '1';
       } else {
@@ -92,7 +123,7 @@ class personaC {
       "password": p.contrasena,
       "enabled": true,
     });
-    developer.log('todo bien: ${body}');
+    developer.log('todo bien: ${body.toString()}');
 
     try {
       var response = await http.post(
@@ -106,7 +137,7 @@ class personaC {
       if (response.statusCode == 200) {
         dynamic jsonData = jsonDecode(response.body);
 
-        developer.log('todo bien: ${response.statusCode}');
+        developer.log('todo bien: ${jsonData.toString()}');
 
         return '1';
       } else {

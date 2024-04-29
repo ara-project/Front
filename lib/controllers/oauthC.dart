@@ -36,7 +36,7 @@ class oauthC {
         developer.log('Nombre: ${googleUser.id}');
         developer.log('Email: ${googleUser.email}');
         String s = await personasC.login(googleUser);
-        developer.log(s);
+        developer.log(googleUser.id);
         return s != '' ? true : false;
       } else {
         developer.log('Inicio de sesión con Google cancelado.');
@@ -53,7 +53,7 @@ class oauthC {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
-        var name = googleUser.displayName?.split('');
+        var name = googleUser.displayName?.split(' ');
         Personas p = Personas(
             cedula: ' ',
             primerNombre: name![0],
