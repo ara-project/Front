@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'package:front_ara/entitys/person.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:front_ara/controllers/personaC.dart';
@@ -46,6 +47,34 @@ class oauthC {
       developer.log('Error al iniciar sesión con Google: $error');
 
       return false;
+    }
+  }
+
+  Future<String> Register() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        var name = googleUser.displayName?.split('');
+        Personas p = Personas(
+            cedula: ' ',
+            primerNombre: name![0],
+            segundoNombre: name[1],
+            primerApellido: name[2],
+            segundoApellido: name[3],
+            correo: googleUser.email,
+            contrasena: '',
+            usuario: '');
+        p.identification = googleUser.id;
+
+        return await personasC.registerG(p);
+      } else {
+        developer.log('Inicio de sesión con Google cancelado.');
+        return '3';
+      }
+    } catch (error) {
+      developer.log('Error al iniciar sesión con Google: $error');
+
+      return '3';
     }
   }
 }

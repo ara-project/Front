@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/oauthC.dart';
 import 'package:front_ara/entitys/person.dart';
+import 'dart:developer' as developer;
 
 class Register extends StatefulWidget {
   const Register({super.key});
-
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
   String _errorMessage = '';
+  oauthC oauthc = oauthC();
 
   final TextEditingController _cedulaController = TextEditingController();
   final TextEditingController _primerNombreController = TextEditingController();
@@ -132,9 +134,24 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void _signInWithGoogle() {
-    // Implementa la lógica para iniciar sesión con Google aquí
-    print('Iniciar sesión con Google');
+  void _signInWithGoogle() async {
+    var s = await oauthc.Register();
+    switch (s) {
+      case '1':
+        developer.log('Inicio de sesion exitoso');
+        Navigator.pushNamed(context, '/home');
+        break;
+      case '2':
+        developer.log('Usuario ya existe');
+        Navigator.pushNamed(context, '/home');
+        break;
+
+      case '3':
+        break;
+
+      default:
+        break;
+    }
   }
 
   InputDecoration returnInputDecoration(String data) {

@@ -18,6 +18,7 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  
   late List<Product> _fetchDataFuture = [];
   late List<Category> _fetchDataFutureCategory = [];
   late List<Product> suggestionList = [];
