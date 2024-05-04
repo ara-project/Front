@@ -27,11 +27,13 @@ class _homeState extends State<home> {
   Map<Product, int> shoppingCart = {};
   ProductC productc = ProductC();
   CategoryC categoryc = CategoryC();
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    //Traer los datos al inicio del widget
     fetchData();
   }
 
@@ -60,7 +62,7 @@ class _homeState extends State<home> {
                   children: [
                     IconButton(
                         onPressed: () => {_openDrawer()},
-                        icon: Icon(Icons.menu)),
+                        icon: const Icon(Icons.menu)),
                     Container(
                       height: height * 0.05,
                       width: width * 0.6,
@@ -220,10 +222,12 @@ class _homeState extends State<home> {
             )));
   }
 
+  //Abriel la ventana izquierda
   void _openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  //Añadir producto al carrtido de compras
   void addProductShoppingCart(Product p) {
     setState(() {
       if (shoppingCart.containsKey(p)) {
@@ -234,6 +238,7 @@ class _homeState extends State<home> {
     });
   }
 
+  //Traer las cateforias
   fetchDataCategory(Category c) async {
     _fetchDataFuture = await categoryc.fetchDataCategory(c);
     setState(() {
@@ -241,10 +246,12 @@ class _homeState extends State<home> {
     });
   }
 
+  //Buscar producto por id
   fetchproductbyId(String id) async {
     await productc.fetchproductbyid(id);
   }
 
+  //Traer productos y categorias
   fetchData() async {
     _fetchDataFuture = await productc.dataProducts();
     _fetchDataFutureCategory = await categoryc.dataCategory();

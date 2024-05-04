@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Widget para la configuracion del usuario
 class configW extends StatelessWidget {
   Function closeSesion;
   configW({super.key, required this.closeSesion});

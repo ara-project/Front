@@ -50,11 +50,13 @@ class _LoginState extends State<Login> {
                             height: height * 0.2,
                           ),
                           SizedBox(height: (0.04 * height)),
+                          //Caja de texto Usuario
                           TextFormField(
                             controller: _correoController,
-                            decoration: returnInputDecoration("Correo"),
+                            decoration: returnInputDecoration("Usuario"),
                           ),
                           SizedBox(height: (0.04 * height)),
+                          //Caja de texto contraseña
                           TextFormField(
                             controller: _contrasenaController,
                             decoration: returnInputDecoration("Contraseña"),
@@ -83,14 +85,12 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           ),
-                          IconButton(
-                              onPressed: () => {logout()},
-                              icon: Icon(Icons.abc))
                         ])))));
   }
 
-  // Navigator.pushNamed(context, '/home');
+  //Metodo para ingreasr el usuario;
   Login() async {
+    //Validacion de las condiciones del usuario
     var s = await personac.loginN(
         _correoController.text, _contrasenaController.text);
     if (s == 1) {
@@ -98,6 +98,7 @@ class _LoginState extends State<Login> {
     }
   }
 
+  //Login de usuario con google
   _signInWithGoogle() async {
     try {
       bool n = await oauht.siging();
@@ -111,10 +112,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  logout() async {
-    await oauht.logout();
-  }
-
+//Metodo para decorar los inputs
   InputDecoration returnInputDecoration(String data) {
     return InputDecoration(
       fillColor: Colors.white,

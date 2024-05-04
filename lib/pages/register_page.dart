@@ -14,6 +14,7 @@ class _RegisterState extends State<Register> {
   //String _errorMessage = '';
   oauthC oauthc = oauthC();
 
+//Todos los campos
   final TextEditingController _cedulaController = TextEditingController();
   final TextEditingController _primerNombreController = TextEditingController();
   final TextEditingController _segundoNombreController =
@@ -26,6 +27,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController _contrasenaController = TextEditingController();
   final TextEditingController _usuarioController = TextEditingController();
   personaC personac = personaC();
+  
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -111,6 +113,7 @@ class _RegisterState extends State<Register> {
     ));
   }
 
+  //Registro de usuarios
   void _register() async {
     // Recuperar valores de los campos
     String cedula = _cedulaController.text;
@@ -150,14 +153,17 @@ class _RegisterState extends State<Register> {
     }
   }
 
+  //Registro de usuarios con google
   void _signInWithGoogle() async {
     var s = await oauthc.Register();
     switch (s) {
+      //Inicio de sesion exitoso
       case '1':
         developer.log('Inicio de sesion exitoso');
         Navigator.pushNamed(context, '/home');
         break;
       case '2':
+        //Usuario ya existe inciar sesion
         developer.log('Usuario ya existe');
         Navigator.pushNamed(context, '/home');
         break;

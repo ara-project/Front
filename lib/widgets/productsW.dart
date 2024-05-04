@@ -6,6 +6,7 @@ import 'dart:developer' as developer;
 
 import 'package:money2/money2.dart';
 
+//Widget que carga todos los productos en una lista de scroll
 class ProductsW extends StatelessWidget {
   List<Product> products;
   Function(Product) addProduct;
@@ -24,6 +25,7 @@ class ProductsW extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
+                  //Ver los productos
                   builder: (context) => Detailproduct(
                     product: products[index],
                     addProduct: addProduct,
@@ -54,6 +56,7 @@ class ProductsW extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
+                          //Metodo convertir el precio
                           Money.parseWithCurrency(
                                   products[index].price.toString(),
                                   Currency.create('USD', 2))
@@ -76,6 +79,7 @@ class ProductsW extends StatelessWidget {
     );
   }
 
+//Cargar la imagen
   Widget _buildProductImage(String imageUrl) {
     try {
       return Image.network(

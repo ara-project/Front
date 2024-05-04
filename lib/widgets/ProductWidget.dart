@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:money2/money2.dart';
 
+/**
+ * Metodo para productos dentro del carrito de compras se puede mejorar
+ */
 class ProductWidget extends StatelessWidget {
   Product product;
   bool showButton;
