@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:front_ara/pages/detail_page.dart';
 import 'dart:developer' as developer;
-
 import 'package:money2/money2.dart';
 
 class ProductsW extends StatelessWidget {

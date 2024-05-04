@@ -1,3 +1,3 @@
 class MyConfig {
-  static const String uri = 'http://10.0.0.9:8080';
+  static const String uri = 'http://127.0.0.1:8080';
 }

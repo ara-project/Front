@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                           SizedBox(height: (0.04 * height)),
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/perfil');
+                              Navigator.pushNamed(context, '/home');
                             },
                             child: const Text('Iniciar sesion'),
                           ),
