@@ -8,7 +8,7 @@ class configW extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(40),
+      padding: const EdgeInsets.all(40),
       child: Column(
         children: [
           TextButton(

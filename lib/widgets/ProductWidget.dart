@@ -65,7 +65,7 @@ class ProductWidget extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );

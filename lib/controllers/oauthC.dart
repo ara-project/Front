@@ -7,7 +7,7 @@ import 'package:front_ara/controllers/personaC.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class oauthC {
-  personaC personasC = new personaC();
+  personaC personasC = personaC();
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   //Metodo para deslogear al usuario

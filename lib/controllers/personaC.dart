@@ -155,6 +155,22 @@ class personaC {
       return '3';
     }
   }
+
+  dynamic validateUser(String user) {
+    if (user.isEmpty) {
+      return "El campo esta vacio";
+    }
+    if (user.contains(' ')) {
+      return "El campo no puede contener vacios";
+    }
+    if (user.contains(RegExp(r'[A-Z]'))) {
+      return "El campo solo puede contener valores alfanumericos";
+    }
+    if (user.contains(RegExp(r'^[\W_]+$'))) {
+      return "El campo solo puede contener valores alfanumericos";
+    }
+    return null;
+  }
 }
 
 

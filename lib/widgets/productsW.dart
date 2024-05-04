@@ -68,7 +68,7 @@ class ProductsW extends StatelessWidget {
                             onPressed: () {
                               addProduct(products[index]);
                             },
-                            icon: Icon(Icons.add))
+                            icon: const Icon(Icons.add))
                       ],
                     ))
               ],
@@ -96,8 +96,7 @@ class ProductsW extends StatelessWidget {
         },
       );
     } catch (e) {
-      print('Error al cargar la imagen: $e');
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }
