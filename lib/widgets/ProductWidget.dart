@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:money2/money2.dart';
 
+/**
+ * Metodo para productos dentro del carrito de compras se puede mejorar
+ */
 class ProductWidget extends StatelessWidget {
   Product product;
   bool showButton;
@@ -13,8 +16,7 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    return Container(
-        child: Row(
+    return Row(
       children: [
         _buildProductImage(product.img_src),
         SizedBox(
@@ -37,6 +39,7 @@ class ProductWidget extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
+                  //Metodo para poder visualizar el valor delproducto
                   Money.parseWithCurrency(
                           product.price.toString(), Currency.create('USD', 2))
                       .format('S###,###'),
@@ -48,7 +51,7 @@ class ProductWidget extends StatelessWidget {
               ],
             ))
       ],
-    ));
+    );
   }
 
   Widget _buildProductImage(String imageUrl) {
@@ -62,13 +65,12 @@ class ProductWidget extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
     } catch (e) {
-      print('Error al cargar la imagen: $e');
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

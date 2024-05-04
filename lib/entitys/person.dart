@@ -7,6 +7,7 @@ class Personas {
   String correo;
   String contrasena;
   String usuario;
+  String identification = '';
 
   Personas({
     required this.cedula,

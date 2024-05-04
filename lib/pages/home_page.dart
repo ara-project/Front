@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/categoryC.dart';
+import 'package:front_ara/controllers/oauthC.dart';
 import 'package:front_ara/controllers/productoC.dart';
 import 'package:front_ara/entitys/category.dart';
 import 'package:front_ara/entitys/product.dart';
@@ -8,6 +9,7 @@ import 'package:front_ara/pages/ShoppingCart.dart';
 import 'package:front_ara/pages/detail_page.dart';
 import 'package:front_ara/widgets/categoryW.dart';
 import 'package:front_ara/widgets/ProductsW.dart';
+import 'package:front_ara/widgets/configW.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class home extends StatefulWidget {
@@ -18,15 +20,20 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  oauthC oaucthc = oauthC();
   late List<Product> _fetchDataFuture = [];
   late List<Category> _fetchDataFutureCategory = [];
   late List<Product> suggestionList = [];
   Map<Product, int> shoppingCart = {};
   ProductC productc = ProductC();
   CategoryC categoryc = CategoryC();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
+    //Traer los datos al inicio del widget
     fetchData();
   }
 
@@ -37,7 +44,13 @@ class _homeState extends State<home> {
     SearchController __controller = SearchController();
 
     return Scaffold(
+        drawerEnableOpenDragGesture: false,
+        key: _scaffoldKey,
+        drawer: Drawer(
+          child: configW(closeSesion: oaucthc.logout),
+        ),
         appBar: AppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: height * 0.10,
             leadingWidth: width,
             leading: Container(
@@ -48,7 +61,8 @@ class _homeState extends State<home> {
                 child: Row(
                   children: [
                     IconButton(
-                        onPressed: () => {}, icon: const Icon(Icons.reorder)),
+                        onPressed: () => {_openDrawer()},
+                        icon: const Icon(Icons.menu)),
                     Container(
                       height: height * 0.05,
                       width: width * 0.6,
@@ -151,7 +165,8 @@ class _homeState extends State<home> {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return Container(                                      child: Center(
+                                    return Container(
+                                      child: Center(
                                         child: Text(res),
                                       ),
                                     );
@@ -181,7 +196,7 @@ class _homeState extends State<home> {
                         onCategorySelected: (Category selectCategory) =>
                             {fetchDataCategory(selectCategory)},
                       )
-                    : CircularProgressIndicator(),
+                    : const CircularProgressIndicator(),
                 SizedBox(height: (0.04 * height)),
                 Container(
                   alignment: AlignmentDirectional.topStart,
@@ -197,7 +212,7 @@ class _homeState extends State<home> {
                             {addProductShoppingCart(producto)},
                         products: _fetchDataFuture,
                       )
-                    : Expanded(
+                    : const Expanded(
                         flex: 5,
                         child: Center(
                           child: CircularProgressIndicator(),
@@ -207,6 +222,12 @@ class _homeState extends State<home> {
             )));
   }
 
+  //Abriel la ventana izquierda
+  void _openDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+  }
+
+  //Añadir producto al carrtido de compras
   void addProductShoppingCart(Product p) {
     setState(() {
       if (shoppingCart.containsKey(p)) {
@@ -217,6 +238,7 @@ class _homeState extends State<home> {
     });
   }
 
+  //Traer las cateforias
   fetchDataCategory(Category c) async {
     _fetchDataFuture = await categoryc.fetchDataCategory(c);
     setState(() {
@@ -224,10 +246,12 @@ class _homeState extends State<home> {
     });
   }
 
+  //Buscar producto por id
   fetchproductbyId(String id) async {
     await productc.fetchproductbyid(id);
   }
 
+  //Traer productos y categorias
   fetchData() async {
     _fetchDataFuture = await productc.dataProducts();
     _fetchDataFutureCategory = await categoryc.dataCategory();

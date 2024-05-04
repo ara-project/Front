@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/oauthC.dart';
+import 'package:front_ara/controllers/personaC.dart';
 import 'dart:developer' as developer;
-import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,10 +11,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  personaC personac = personaC();
   oauthC oauht = new oauthC();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +68,7 @@ class _LoginState extends State<Login> {
                           SizedBox(height: (0.04 * height)),
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/home');
+                              Navigator.pushNamed(context, '/perfil');
                             },
                             child: const Text('Iniciar sesion'),
                           ),
@@ -103,10 +110,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  logout() async {
-    await oauht.logout();
-  }
-
+//Metodo para decorar los inputs
   InputDecoration returnInputDecoration(String data) {
     return InputDecoration(
       fillColor: Colors.white,
@@ -115,6 +119,8 @@ class _LoginState extends State<Login> {
         borderSide: BorderSide(color: Colors.black), // Color del borde
       ),
       labelText: data,
+      errorStyle: const TextStyle(
+          color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       contentPadding:
           const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),

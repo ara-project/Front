@@ -14,14 +14,15 @@ class Detailproduct extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(236, 117, 35, 1),
+          backgroundColor: const Color.fromRGBO(236, 117, 35, 1),
         ),
         body: SingleChildScrollView(
           child: Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  //Imagen del producto
                   Container(
                     width: width,
                     height: height * 0.4,
@@ -29,53 +30,57 @@ class Detailproduct extends StatelessWidget {
                   ),
                   Column(
                     children: [
+                      //Nombre del producto
                       Text(
                         product.name,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
+                        //Visualizar el precio del producto
                         Money.parseWithCurrency(product.price.toString(),
                                 Currency.create('USD', 2))
                             .format('S###,###'),
-                        style: TextStyle(fontSize: 25),
+                        style: const TextStyle(fontSize: 25),
                       )
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     product.describe,
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     product.content,
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  SizedBox(height: 20),
-                  Divider(
+                  const SizedBox(height: 20),
+                  const Divider(
                     height: 20,
                   ),
                   Column(
                     children: [
+                      //Boton agregar al carrito
                       ElevatedButton(
-                          onPressed: () => {addProduct(product)},
-                          child: Text(
-                            "Agregar al Carrito",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ),
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                                  return Color.fromRGBO(236, 117, 35, 1);
-                                },
-                              ),
-                              fixedSize:
-                                  MaterialStateProperty.all(Size(width, 50))))
+                        onPressed: () => {addProduct(product)},
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                return const Color.fromRGBO(236, 117, 35, 1);
+                              },
+                            ),
+                            fixedSize:
+                                MaterialStateProperty.all(Size(width, 50))),
+                        child: const Text(
+                          "Agregar al Carrito",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      )
                     ],
                   )
                 ],
@@ -83,6 +88,7 @@ class Detailproduct extends StatelessWidget {
         ));
   }
 
+//Cargar la imagen del producto
   Widget _buildProductImage(String imageUrl) {
     try {
       return Image.network(
@@ -92,13 +98,12 @@ class Detailproduct extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
     } catch (e) {
-      print('Error al cargar la imagen: $e');
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

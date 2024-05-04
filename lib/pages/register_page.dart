@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/oauthC.dart';
+import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/person.dart';
+import 'dart:developer' as developer;
 
 class Register extends StatefulWidget {
   const Register({super.key});
-
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  String _errorMessage = '';
+  //String _errorMessage = '';
+  oauthC oauthc = oauthC();
 
+//Todos los campos
   final TextEditingController _cedulaController = TextEditingController();
   final TextEditingController _primerNombreController = TextEditingController();
   final TextEditingController _segundoNombreController =
@@ -22,7 +26,8 @@ class _RegisterState extends State<Register> {
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
   final TextEditingController _usuarioController = TextEditingController();
-
+  personaC personac = personaC();
+  
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -97,7 +102,7 @@ class _RegisterState extends State<Register> {
                       height: 24,
                     ),
                     const SizedBox(height: 5),
-                    Text("Registrate con Google")
+                    const Text("Registrate con Google")
                   ],
                 ),
               ),
@@ -108,7 +113,8 @@ class _RegisterState extends State<Register> {
     ));
   }
 
-  void _register() {
+  //Registro de usuarios
+  void _register() async {
     // Recuperar valores de los campos
     String cedula = _cedulaController.text;
     String primerNombre = _primerNombreController.text;
@@ -119,7 +125,6 @@ class _RegisterState extends State<Register> {
     String contrasena = _contrasenaController.text;
     String usuario = _usuarioController.text;
 
-    // Crear una nueva instancia de Persona
     Personas nuevaPersona = Personas(
       cedula: cedula,
       primerNombre: primerNombre,
@@ -130,11 +135,45 @@ class _RegisterState extends State<Register> {
       contrasena: contrasena,
       usuario: usuario,
     );
+    var s = await personac.register(nuevaPersona);
+    switch (s) {
+      case '1':
+        developer.log('Inicio de sesion exitoso');
+        Navigator.pushNamed(context, '/home');
+        break;
+      case '2':
+        developer.log('Usuario ya existe');
+        Navigator.pushNamed(context, '/home');
+        break;
+      case '3':
+        break;
+
+      default:
+        break;
+    }
   }
 
-  void _signInWithGoogle() {
-    // Implementa la lógica para iniciar sesión con Google aquí
-    print('Iniciar sesión con Google');
+  //Registro de usuarios con google
+  void _signInWithGoogle() async {
+    var s = await oauthc.Register();
+    switch (s) {
+      //Inicio de sesion exitoso
+      case '1':
+        developer.log('Inicio de sesion exitoso');
+        Navigator.pushNamed(context, '/home');
+        break;
+      case '2':
+        //Usuario ya existe inciar sesion
+        developer.log('Usuario ya existe');
+        Navigator.pushNamed(context, '/home');
+        break;
+
+      case '3':
+        break;
+
+      default:
+        break;
+    }
   }
 
   InputDecoration returnInputDecoration(String data) {

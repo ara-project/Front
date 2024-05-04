@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:front_ara/config.dart';
 
 class CategoryC {
+  //Metodo para obtener las categorias desde el backend
   Future<List<Category>> dataCategory() async {
     var url = Uri.parse('${MyConfig.uri}/Category');
 
@@ -24,6 +25,7 @@ class CategoryC {
     }
   }
 
+  //Traer los productos correspondentes a cada categoría
   Future<List<Product>> fetchDataCategory(Category c) async {
     var url = Uri.parse('${MyConfig.uri}/Category/${c.id_category.toString()}');
 
