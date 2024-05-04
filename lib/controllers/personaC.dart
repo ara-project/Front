@@ -7,6 +7,7 @@ import 'dart:developer' as developer;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class personaC {
+  //Metodo para hacer login de una usuario usando google Account
   Future<String> login(GoogleSignInAccount g) async {
     var url = Uri.parse('${MyConfig.uri}/Oauth/login');
 
@@ -16,10 +17,7 @@ class personaC {
       if (response.statusCode == 200) {
         dynamic jsonData = jsonDecode(response.body);
         developer.log(jsonData['token'].toString());
-
         String token = jsonData['token'];
-
-        // 1. Store token in SharedPreferences (**NOT RECOMMENDED**):
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
 
@@ -34,6 +32,7 @@ class personaC {
     }
   }
 
+  //Metodo para logear a un usuario con username y password
   Future<String> loginN(String username, String password) async {
     var url = Uri.parse('${MyConfig.uri}/auth/authenticate');
     var body = jsonEncode({"username": username, "password": password});
@@ -65,6 +64,7 @@ class personaC {
     }
   }
 
+  //Registro de usuario con google
   Future<String> registerG(Personas p) async {
     var url = Uri.parse('${MyConfig.uri}/Oauth/register');
     var body = jsonEncode({
@@ -109,6 +109,7 @@ class personaC {
     }
   }
 
+  //Registro de usuario sin google
   Future<String> register(Personas p) async {
     var url = Uri.parse('${MyConfig.uri}/personas/register');
     var body = jsonEncode({

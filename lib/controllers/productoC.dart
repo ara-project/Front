@@ -5,7 +5,7 @@ import 'dart:convert';
 
 class ProductC {
   late List<Product> suggestionList = [];
-
+  //Metodo para traer todos los productos
   Future<List<Product>> dataProducts() async {
     var url = Uri.parse('${MyConfig.uri}/Product');
 
@@ -25,6 +25,7 @@ class ProductC {
     }
   }
 
+  //Metodo para traer sugerencia de productos apartir de un string
   Future<List<Product>> fetchDatassuggestion(String p) async {
     var url = Uri.parse('${MyConfig.uri}/Product/${p.toString()}');
 

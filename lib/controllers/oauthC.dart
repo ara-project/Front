@@ -10,18 +10,24 @@ class oauthC {
   personaC personasC = new personaC();
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
+  //Metodo para deslogear al usuario
   logout() async {
     developer.log(_googleSignIn.currentUser.toString());
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
     developer.log(prefs.getString('token').toString());
-
-    if (_googleSignIn.currentUser != null) {
+    try {
       _googleSignIn.disconnect();
-      developer.log(prefs.getString('token').toString());
+      if (_googleSignIn.currentUser != null) {
+        _googleSignIn.disconnect();
+        developer.log(prefs.getString('token').toString());
+      }
+    } catch (e) {
+      developer.log(e.toString());
     }
   }
 
+  //Metodo para iniciar sesion con google y guardar token
   Future<bool> siging() async {
     final prefs = await SharedPreferences.getInstance();
     developer.log(prefs.getString('token').toString());
@@ -49,6 +55,7 @@ class oauthC {
     }
   }
 
+  //Registro de usuario por medio de google
   Future<String> Register() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();

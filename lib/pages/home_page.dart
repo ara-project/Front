@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/categoryC.dart';
+import 'package:front_ara/controllers/oauthC.dart';
 import 'package:front_ara/controllers/productoC.dart';
 import 'package:front_ara/entitys/category.dart';
 import 'package:front_ara/entitys/product.dart';
@@ -8,6 +9,7 @@ import 'package:front_ara/pages/ShoppingCart.dart';
 import 'package:front_ara/pages/detail_page.dart';
 import 'package:front_ara/widgets/categoryW.dart';
 import 'package:front_ara/widgets/ProductsW.dart';
+import 'package:front_ara/widgets/configW.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class home extends StatefulWidget {
@@ -18,7 +20,7 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  
+  oauthC oaucthc = oauthC();
   late List<Product> _fetchDataFuture = [];
   late List<Category> _fetchDataFutureCategory = [];
   late List<Product> suggestionList = [];
@@ -42,7 +44,9 @@ class _homeState extends State<home> {
     return Scaffold(
         drawerEnableOpenDragGesture: false,
         key: _scaffoldKey,
-        drawer: Drawer(),
+        drawer: Drawer(
+          child: configW(closeSesion: oaucthc.logout),
+        ),
         appBar: AppBar(
             automaticallyImplyLeading: false,
             toolbarHeight: height * 0.10,
