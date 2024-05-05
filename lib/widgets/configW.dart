@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/entitys/person.dart';
+import 'package:front_ara/pages/perfile_page.dart';
 
 //Widget para la configuracion del usuario
 class configW extends StatelessWidget {
@@ -17,6 +19,26 @@ class configW extends StatelessWidget {
               Navigator.pushNamed(context, '/login');
             },
             child: const Text("Cerrar sesión"),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Perfil(
+                      usuario: Personas(
+                          cedula: '23123',
+                          primerNombre: 'Luis',
+                          segundoNombre: 'Alejandro',
+                          primerApellido: 'Carretero',
+                          segundoApellido: 'Ballesteros',
+                          correo: 'alejocarreteroballesteros@gmail.com',
+                          contrasena: 'na',
+                          usuario: 'chandro')),
+                ),
+              );
+            },
+            child: const Text("Información Usuario"),
           )
         ],
       ),

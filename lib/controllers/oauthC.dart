@@ -28,11 +28,11 @@ class oauthC {
   }
 
   //Metodo para iniciar sesion con google y guardar token
-  Future<bool> siging() async {
+  Future<String> siging() async {
     final prefs = await SharedPreferences.getInstance();
     developer.log(prefs.getString('token').toString());
     if (await prefs.getString('token') != null) {
-      return true;
+      return '3';
     }
 
     try {
@@ -43,15 +43,22 @@ class oauthC {
         developer.log('Email: ${googleUser.email}');
         String s = await personasC.login(googleUser);
         developer.log(googleUser.id);
-        return s != '' ? true : false;
+        if (s == '1') {
+          return '1';
+        }
+        if (s == '2') {
+          _googleSignIn.disconnect();
+          return '2';
+        }
+        return s.toString();
       } else {
         developer.log('Inicio de sesión con Google cancelado.');
-        return false;
+        return '3';
       }
     } catch (error) {
       developer.log('Error al iniciar sesión con Google: $error');
 
-      return false;
+      return '3';
     }
   }
 

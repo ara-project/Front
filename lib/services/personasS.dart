@@ -8,6 +8,9 @@ class PersonasS {
     if (user.contains(' ')) {
       return "El campo no puede contener vacios";
     }
+    if (user.length < 5 || user.length > 20) {
+      return "El campo debe ser mayor de 5 y menor de 20";
+    }
     if (user.contains(RegExp(r'[A-Z]'))) {
       return "El campo solo puede contener valores alfanumericos";
     }
@@ -23,6 +26,9 @@ class PersonasS {
     }
     if (cedula.contains(' ')) {
       return "El campo no puede contener vacios";
+    }
+    if (cedula.length < 5 || cedula.length > 20) {
+      return "El campo debe ser mayor de 5 y menor de 20";
     }
     if (!cedula.contains(RegExp(r'^[0-9]+$'))) {
       return "El campo solo puede contener valores Numericos";
@@ -40,6 +46,9 @@ class PersonasS {
     if (user.contains(' ')) {
       return "El campo no puede contener vacios";
     }
+    if (user.length < 5 || user.length > 20) {
+      return "El campo debe ser mayor de 5 y menor de 20";
+    }
     return null;
   }
 
@@ -49,6 +58,9 @@ class PersonasS {
     }
     if (user.contains(' ')) {
       return "El campo no puede contener vacios";
+    }
+    if (user.length < 5 || user.length > 20) {
+      return "El campo debe ser mayor de 5 y menor de 20";
     }
     if (!user.contains(RegExp(r'^[a-zA-Z]+$'))) {
       return "El campo solo puede contener valores alfanumericos";

@@ -17,13 +17,15 @@ class personaC {
       if (response.statusCode == 200) {
         dynamic jsonData = jsonDecode(response.body);
         developer.log(jsonData['token'].toString());
+
         String token = jsonData['token'];
+
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
 
-        return token;
+        return '1';
       } else {
-        developer.log('Error: ${response.statusCode}');
+        developer.log('Error: ${response.body}');
         return '';
       }
     } catch (e) {
@@ -154,22 +156,6 @@ class personaC {
       developer.log('Error de conexión aqui: $e');
       return '3';
     }
-  }
-
-  dynamic validateUser(String user) {
-    if (user.isEmpty) {
-      return "El campo esta vacio";
-    }
-    if (user.contains(' ')) {
-      return "El campo no puede contener vacios";
-    }
-    if (user.contains(RegExp(r'[A-Z]'))) {
-      return "El campo solo puede contener valores alfanumericos";
-    }
-    if (user.contains(RegExp(r'^[\W_]+$'))) {
-      return "El campo solo puede contener valores alfanumericos";
-    }
-    return null;
   }
 }
 

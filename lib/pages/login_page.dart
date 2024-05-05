@@ -3,6 +3,8 @@ import 'package:front_ara/controllers/oauthC.dart';
 import 'package:front_ara/controllers/personaC.dart';
 import 'dart:developer' as developer;
 
+import 'package:front_ara/services/personasS.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -11,6 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  PersonasS personas = PersonasS();
   personaC personac = personaC();
   oauthC oauht = new oauthC();
   final TextEditingController _correoController = TextEditingController();
@@ -49,7 +52,6 @@ class _LoginState extends State<Login> {
                 child: Padding(
                     padding: const EdgeInsets.all(40),
                     child: Form(
-                        canPop: false,
                         key: _formKey,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,7 +68,7 @@ class _LoginState extends State<Login> {
                                 decoration: returnInputDecoration("Usuario"),
                                 validator: (valor) {
                                   if (valor != null) {
-                                    return personac.validateUser(valor);
+                                    return personas.validateUser(valor);
                                   } else {
                                     return "El campo esta vacio";
                                   }
@@ -80,7 +82,7 @@ class _LoginState extends State<Login> {
                                 decoration: returnInputDecoration("Contraseña"),
                                 validator: (valor) {
                                   if (valor != null) {
-                                    return personac.validateUser(valor);
+                                    return personas.validatePass(valor);
                                   } else {
                                     return "El campo esta vacio";
                                   }
@@ -156,14 +158,78 @@ class _LoginState extends State<Login> {
   //Login de usuario con google
   _signInWithGoogle() async {
     try {
-      bool n = await oauht.siging();
+      String s = await oauht.siging();
 
-      if (n) {
-        Navigator.pushNamed(context, '/home');
+      switch (s) {
+        //Inicio de sesion exitoso
+        case '1':
+          developer.log('Inicio de sesion exitoso');
+          Navigator.pushNamed(context, '/home');
+          break;
+        case '2':
+          //Usuario ya existe inciar sesion
+          developer.log('Usuario no existe');
+          Navigator.pushNamed(context, '/register');
+          break;
+
+        case '3':
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: const Text("No se pudo Registrar de forma correcta"),
+                contentTextStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Cierra el diálogo
+                    },
+                    child: const Text(
+                      "Cerrar",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+          break;
+
+        default:
+          break;
       }
     } catch (error) {
-      // Error durante el inicio de sesión con Google
-      developer.log('Error al iniciar sesión con Google: $error');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            //   title: const Text("Título del diálogo"),
+            content: const Text("No se pudo iniciar sesion de forma correcta"),
+            contentTextStyle: const TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Cierra el diálogo
+                },
+                child: const Text(
+                  "Cerrar",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

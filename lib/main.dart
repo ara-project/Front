@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/register': (context) => const Register(),
         '/login': (context) => const Login(),
-        '/perfil': (context) => const Perfil(),
         '/home': (context) => const home(),
       },
       title: 'Ara app',
