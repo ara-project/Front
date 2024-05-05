@@ -20,6 +20,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     // TODO: implement initState
+    /// Implementar el logeo con jwt apenas inice la aplicación
     super.initState();
   }
 
@@ -74,6 +75,7 @@ class _LoginState extends State<Login> {
                               SizedBox(height: (0.04 * height)),
                               //Caja de texto contraseña
                               TextFormField(
+                                obscureText: true,
                                 controller: _contrasenaController,
                                 decoration: returnInputDecoration("Contraseña"),
                                 validator: (valor) {
@@ -89,7 +91,7 @@ class _LoginState extends State<Login> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     Login();
-                                  }
+                                  } else {}
                                 },
                                 child: const Text('Iniciar sesion'),
                               ),
@@ -122,6 +124,7 @@ class _LoginState extends State<Login> {
     if (s == '1') {
       Navigator.pushNamed(context, '/home');
     } else {
+      //Sino se ingresa se muestra cuadro de texto
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -174,7 +177,7 @@ class _LoginState extends State<Login> {
       ),
       labelText: data,
       errorStyle: const TextStyle(
-          color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+          color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       contentPadding:
           const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
