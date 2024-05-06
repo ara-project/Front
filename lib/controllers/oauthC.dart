@@ -12,10 +12,8 @@ class oauthC {
 
   //Metodo para deslogear al usuario
   logout() async {
-    developer.log(_googleSignIn.currentUser.toString());
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
-    developer.log(prefs.getString('token').toString());
     try {
       _googleSignIn.disconnect();
       if (_googleSignIn.currentUser != null) {

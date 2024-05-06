@@ -22,9 +22,8 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    /// Implementar el logeo con jwt apenas inice la aplicación
     super.initState();
+    validtoken();
   }
 
   @override
@@ -230,6 +229,21 @@ class _LoginState extends State<Login> {
           );
         },
       );
+    }
+  }
+
+// Metodo validacion de tokens init
+  validtoken() async {
+    String s = await personac.validToken();
+
+    switch (s) {
+      //Inicio de sesion exitoso
+      case '1':
+        developer.log('Inicio de sesion exitoso');
+        Navigator.pushNamed(context, '/home');
+        break;
+      default:
+        break;
     }
   }
 

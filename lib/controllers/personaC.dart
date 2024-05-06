@@ -1,3 +1,4 @@
+import 'package:front_ara/controllers/oauthC.dart';
 import 'package:front_ara/entitys/person.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -31,6 +32,99 @@ class personaC {
     } catch (e) {
       developer.log('Error de conexión aqui: $e');
       return '';
+    }
+  }
+
+  //Traer informacion de las personas
+  Future<Personas> infoUser() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String? token = prefs.getString('token');
+    if (token == null) {
+      return Personas(
+          cedula: '',
+          primerNombre: '',
+          segundoNombre: '',
+          primerApellido: '',
+          segundoApellido: '',
+          correo: '',
+          contrasena: '',
+          usuario: '');
+    }
+    var url = Uri.parse('${MyConfig.uri}/personas/info');
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+    };
+    try {
+      var response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        dynamic jsonData = jsonDecode(response.body);
+        developer.log('Error: data ${response.body}');
+        return Personas.fromJson(jsonData);
+      } else {
+        //await prefs.remove('token');
+        developer.log('Error: Status code ${response.body}');
+        return Personas(
+            cedula: '',
+            primerNombre: '',
+            segundoNombre: '',
+            primerApellido: '',
+            segundoApellido: '',
+            correo: '',
+            contrasena: '',
+            usuario: '');
+      }
+    } catch (e) {
+      //await prefs.remove('token');
+
+      developer.log('Error de conexión aqui: $e');
+      return Personas(
+          cedula: '',
+          primerNombre: '',
+          segundoNombre: '',
+          primerApellido: '',
+          segundoApellido: '',
+          correo: '',
+          contrasena: '',
+          usuario: '');
+    }
+  }
+
+  //Validacion del token
+  Future<String> validToken() async {
+    oauthC oauthc = oauthC();
+
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') != null) {
+      oauthc.logout();
+      return '2';
+    }
+    String token = prefs.getString('token').toString();
+    var url = Uri.parse('${MyConfig.uri}/auth/TokenValid');
+    Map<String, String> headers = {
+      'Authorization':
+          'Bearer $token', // Agrega el token como parte de las cabeceras
+      'Content-Type':
+          'application/json', // Si la solicitud requiere un tipo de contenido específico
+    };
+    try {
+      var response = await http.post(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        dynamic jsonData = jsonDecode(response.body);
+        developer.log(jsonData.toString());
+        return '1';
+      } else {
+        await prefs.remove('token');
+        developer.log('Error: ${response.body}');
+        return '2';
+      }
+    } catch (e) {
+      await prefs.remove('token');
+
+      developer.log('Error de conexión aqui: $e');
+      return '2';
     }
   }
 

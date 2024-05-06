@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/person.dart';
+import 'package:front_ara/pages/main_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 
 //Widget para la configuracion del usuario
 class configW extends StatelessWidget {
   Function closeSesion;
+  personaC personac = personaC();
+
   configW({super.key, required this.closeSesion});
 
   @override
@@ -16,32 +20,36 @@ class configW extends StatelessWidget {
           TextButton(
             onPressed: () async {
               await closeSesion();
-              Navigator.pushNamed(context, '/login');
+              Navigator.pushNamed(context, '/login').then((value) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MainPage()));
+              });
             },
             child: const Text("Cerrar sesión"),
           ),
           TextButton(
             onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Perfil(
-                      usuario: Personas(
-                          cedula: '23123',
-                          primerNombre: 'Luis',
-                          segundoNombre: 'Alejandro',
-                          primerApellido: 'Carretero',
-                          segundoApellido: 'Ballesteros',
-                          correo: 'alejocarreteroballesteros@gmail.com',
-                          contrasena: 'na',
-                          usuario: 'chandro')),
-                ),
-              );
+              await infoUser(context);
             },
             child: const Text("Información Usuario"),
           )
         ],
       ),
     );
+  }
+
+  //Informacion del usuario
+  infoUser(context) async {
+    Personas s = await personac.infoUser();
+    if (s.correo.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Perfil(usuario: s),
+        ),
+      );
+    } else {
+      await closeSesion();
+    }
   }
 }
