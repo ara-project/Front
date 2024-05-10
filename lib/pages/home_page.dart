@@ -228,8 +228,6 @@ class _homeState extends State<home> {
                 ))));
   }
 
-
-
   //Abriel la ventana izquierda
   void _openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
