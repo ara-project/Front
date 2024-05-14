@@ -4,6 +4,7 @@ import 'package:front_ara/pages/login_page.dart';
 import 'package:front_ara/pages/main_page.dart';
 import 'package:front_ara/pages/register_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
+import 'package:front_ara/pages/reset_password.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const Register(),
         '/login': (context) => const Login(),
         '/home': (context) => const home(),
+        '/resetPassword': (context) => const Reset()
       },
       title: 'Ara app',
       home: const Scaffold(

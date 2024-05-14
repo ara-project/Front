@@ -31,8 +31,26 @@ class configW extends StatelessWidget {
             onPressed: () async {
               await infoUser(context);
             },
-            child: const Text("Información Usuario"),
-          )
+            child: Row(
+              children: [
+                Icon(Icons.person), // Icono para "Información Usuario"
+                SizedBox(width: 8), // Espacio entre el icono y el texto
+                Text("Información Usuario"),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pushNamed(context, '/resetPassword');
+            },
+            child: Row(
+              children: [
+                Icon(Icons.lock), // Icono para "Cambiar Contraseña"
+                SizedBox(width: 8), // Espacio entre el icono y el texto
+                Text("Cambiar Contraseña"),
+              ],
+            ),
+          ),
         ],
       ),
     );
