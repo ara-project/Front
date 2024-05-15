@@ -6,6 +6,7 @@ import 'package:front_ara/pages/register_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 import 'package:front_ara/pages/reset_password.dart';
 import 'package:front_ara/pages/payment_method.dart';
+import 'package:front_ara/pages/payment_method.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const Login(),
         '/home': (context) => const home(),
         '/resetPassword': (context) => const Reset(),
-        '/paymentMethod': (context) => const PaymentMethod()
+        '/selectPayment': (context) => const PaymentMethod()
       },
       title: 'Ara app',
       home: const Scaffold(
