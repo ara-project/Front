@@ -43,40 +43,6 @@ class _homeState extends State<home> {
     double height = MediaQuery.of(context).size.height;
     SearchController __controller = SearchController();
 
-<<<<<<< HEAD
-    return Scaffold(
-        appBar: AppBar(
-            toolbarHeight: height * 0.10,
-            leadingWidth: width,
-            leading: Container(
-              decoration: BoxDecoration(color: Color.fromRGBO(236, 117, 35, 1)),
-              child: Padding(
-                padding: EdgeInsets.all(0),
-                child: Row(
-                  children: [
-                    IconButton(onPressed: () => {
-                      Navigator.pushNamed(context, '/perfil')
-                    }, icon: Icon(Icons.reorder)),
-                    Container(
-                        height: height * 0.05,
-                        width: width * 0.6,
-                        child: SearchBar(
-                          controller: _searchController,
-                          hintText: "Buscar",
-                          padding: const MaterialStatePropertyAll<EdgeInsets>(
-                              EdgeInsets.all(5)),
-                          leading: const Icon(Icons.search),
-                        )),
-                    IconButton(
-                        onPressed: () => {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ShoppingCart(cart: this.shoppingCart),
-                                ),
-                              )
-=======
     return PopScope(
         canPop: false,
         child: Scaffold(
@@ -211,7 +177,6 @@ class _homeState extends State<home> {
                                       });
                                 }
                               }
->>>>>>> 1b87bd6a86c30ef59a295bf2068aa93bf2a727d0
                             },
                             icon: const Icon(Icons.flip)),
                       ],
