@@ -128,6 +128,18 @@ class _RegisterState extends State<Register> {
                   ),
                   const Divider(height: 40),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      shadowColor: MaterialStateProperty.all(
+                          Colors.grey), // Color de la sombra
+                      elevation:
+                          MaterialStateProperty.all(5), // Elevación del botón
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(
+                            vertical: 15), // Espaciado interno vertical
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                          Size(50, 50)), // Tamaño mínimo del botón
+                    ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _register();
@@ -281,7 +293,7 @@ class _RegisterState extends State<Register> {
       filled: true,
       border: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black),
-          borderRadius: BorderRadius.all(Radius.circular(0))),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       labelText: data,
       hintText: data,
       errorStyle: const TextStyle(

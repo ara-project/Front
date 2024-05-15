@@ -170,6 +170,7 @@ class personaC {
       "lastname": p.primerApellido,
       "secondLastname": p.segundoApellido,
       "email": p.correo,
+      "username": p.usuario,
       "role": "CUSTOMER",
       "enabled": true,
     });

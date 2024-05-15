@@ -22,6 +22,12 @@ class _ResetPasswordState extends State<Reset> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Color.fromRGBO(236, 117, 35, 1),
+          title: const Text(
+            "Cambiar contraseña",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          )),
       body: SingleChildScrollView(
         child: Container(
             height: height,
