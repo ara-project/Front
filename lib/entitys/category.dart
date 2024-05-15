@@ -18,6 +18,4 @@ class Category {
         name: categoryDecoded,
         imgSrc: json['imgSrc'] ?? 0);
   }
-
-  
 }

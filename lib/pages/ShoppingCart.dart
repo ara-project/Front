@@ -130,7 +130,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
             ),
             const Divider(height: 20),
             TextButton(
-              onPressed: () => {print("Metodos de pago")},
+              onPressed: () => {Navigator.pushNamed(context, '/selectPayment')},
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(

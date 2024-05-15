@@ -32,8 +32,8 @@ class Perfil extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.supervised_user_circle_rounded,
-                          size: 200,
-                          color: Colors.white,
+                          size: 100,
+                          color: Colors.black,
                         ),
                       ],
                     ),
@@ -41,16 +41,13 @@ class Perfil extends StatelessWidget {
                   ],
                 ),
               )),
-          const Center(
+          Center(
               child: Padding(
             padding: EdgeInsets.all(20),
             child: Text(
               'Información del usuario',
               textAlign: TextAlign.justify,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.blueAccent, background: Paint()),
             ),
           )),
           Padding(
@@ -70,11 +67,7 @@ class Perfil extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Cédula",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                        const Text("Cédula"),
                         Text(usuario.cedula),
                       ],
                     ),
@@ -92,18 +85,10 @@ class Perfil extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Nombre",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                        const Text("Nombre"),
                         Text(
                             usuario.primerNombre + ' ' + usuario.segundoNombre),
-                        const Text(
-                          "Apellido",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                        const Text("Apellido"),
                         Text(usuario.primerApellido +
                             ' ' +
                             usuario.segundoApellido)
@@ -127,14 +112,8 @@ class Perfil extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Correo Electrónico",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Text(
-                          usuario.correo,
-                        )
+                        const Text("Correo Electrónico"),
+                        Text(usuario.correo)
                       ],
                     )
                   ],
