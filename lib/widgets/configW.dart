@@ -13,47 +13,53 @@ class configW extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(40),
-      child: Column(
-        children: [
-          TextButton(
-            onPressed: () async {
-              await closeSesion();
-              Navigator.pushNamed(context, '/login').then((value) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainPage()));
-              });
-            },
-            child: const Text("Cerrar sesión"),
+    double height = MediaQuery.of(context).size.height;
+    return Center(
+        heightFactor: height,
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Column(
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    await closeSesion();
+                    Navigator.pushNamed(context, '/login').then((value) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MainPage()));
+                    });
+                  },
+                  child: const Row(children: [
+                    Icon(Icons.logout), // Icono para "Información Usuario"
+                    SizedBox(width: 8), // Espacio entre el icono y el texto
+                    Text("Cerrar sesión"),
+                  ])),
+              TextButton(
+                onPressed: () async {
+                  await infoUser(context);
+                },
+                child: const Row(
+                  children: [
+                    Icon(Icons.person), // Icono para "Información Usuario"
+                    SizedBox(width: 8), // Espacio entre el icono y el texto
+                    Text("Información Usuario"),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.pushNamed(context, '/resetPassword');
+                },
+                child: const Row(
+                  children: [
+                    Icon(Icons.lock), // Icono para "Cambiar Contraseña"
+                    SizedBox(width: 8), // Espacio entre el icono y el texto
+                    Text("Cambiar Contraseña"),
+                  ],
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              await infoUser(context);
-            },
-            child: Row(
-              children: [
-                Icon(Icons.person), // Icono para "Información Usuario"
-                SizedBox(width: 8), // Espacio entre el icono y el texto
-                Text("Información Usuario"),
-              ],
-            ),
-          ),
-          TextButton(
-            onPressed: () async {
-              Navigator.pushNamed(context, '/resetPassword');
-            },
-            child: Row(
-              children: [
-                Icon(Icons.lock), // Icono para "Cambiar Contraseña"
-                SizedBox(width: 8), // Espacio entre el icono y el texto
-                Text("Cambiar Contraseña"),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
   //Informacion del usuario

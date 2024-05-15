@@ -9,7 +9,10 @@ class Perfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Información del perfil"),
+          title: const Text(
+            "Información del perfil",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           backgroundColor: const Color.fromARGB(255, 238, 32, 17)),
       body: Center(
           child: Column(
@@ -26,8 +29,8 @@ class Perfil extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.supervised_user_circle_rounded,
-                          size: 100,
-                          color: Colors.black,
+                          size: 200,
+                          color: Colors.white,
                         ),
                       ],
                     ),
@@ -35,13 +38,16 @@ class Perfil extends StatelessWidget {
                   ],
                 ),
               )),
-          Center(
+          const Center(
               child: Padding(
             padding: EdgeInsets.all(20),
             child: Text(
               'Información del usuario',
               textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.blueAccent, background: Paint()),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
           )),
           Padding(
@@ -61,7 +67,11 @@ class Perfil extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Cédula"),
+                        const Text(
+                          "Cédula",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                         Text(usuario.cedula),
                       ],
                     ),
@@ -79,10 +89,18 @@ class Perfil extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Nombre"),
+                        const Text(
+                          "Nombre",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                         Text(
                             usuario.primerNombre + ' ' + usuario.segundoNombre),
-                        const Text("Apellido"),
+                        const Text(
+                          "Apellido",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                         Text(usuario.primerApellido +
                             ' ' +
                             usuario.segundoApellido)
@@ -106,8 +124,14 @@ class Perfil extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Correo Electrónico"),
-                        Text(usuario.correo)
+                        const Text(
+                          "Correo Electrónico",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Text(
+                          usuario.correo,
+                        )
                       ],
                     )
                   ],

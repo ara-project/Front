@@ -22,7 +22,6 @@ class CategoryW extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {
-                    //Metodo para cargar productos de cada categoria
                     onCategorySelected(categorias[index]);
                   },
                   child: Stack(

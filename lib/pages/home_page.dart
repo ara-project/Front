@@ -196,11 +196,13 @@ class _homeState extends State<home> {
                       ),
                     ),
                     _fetchDataFutureCategory.isNotEmpty
-                        ? CategoryW(
-                            categorias: _fetchDataFutureCategory,
-                            onCategorySelected: (Category selectCategory) =>
-                                {fetchDataCategory(selectCategory)},
-                          )
+                        ? Container(
+                            height: 100,
+                            child: CategoryW(
+                              categorias: _fetchDataFutureCategory,
+                              onCategorySelected: (Category selectCategory) =>
+                                  {fetchDataCategory(selectCategory)},
+                            ))
                         : const CircularProgressIndicator(),
                     SizedBox(height: (0.04 * height)),
                     Container(
@@ -221,7 +223,11 @@ class _homeState extends State<home> {
                         : const Expanded(
                             flex: 5,
                             child: Center(
-                              child: CircularProgressIndicator(),
+                              child: Text(
+                                "No hay productos disponibles",
+                                style: TextStyle(
+                                    fontSize: 35, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           )
                   ],
