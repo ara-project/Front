@@ -13,6 +13,7 @@ class Product {
   int packaging = 0;
   int state = 0;
   double discount = 0.0;
+
   Product(
       {required this.idProduct,
       required this.name,

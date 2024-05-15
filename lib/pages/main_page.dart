@@ -33,28 +33,31 @@ class MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/login');
-                                },
-                                child: Text(
-                                  'Iniciar Sesión',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+                              //Rederricionamiento para Login
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
+                              style: _styleButton(),
+                              child: const Text(
+                                'Iniciar Sesión',
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
-                                style: _styleButton()),
+                              ),
+                            ),
                             const SizedBox(width: 10),
+                            //Rederricionamiento para registro
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, '/register');
                               },
-                              child: Text(
+                              style: _styleButton(),
+                              child: const Text(
                                 'Regístrarte',
                                 style: TextStyle(
                                   color: Colors.black,
                                 ),
                               ),
-                              style: _styleButton(),
                             ),
                             const SizedBox(height: 10),
                           ])
@@ -63,12 +66,12 @@ class MainPageState extends State<MainPage> {
 
   ButtonStyle _styleButton() {
     return ButtonStyle(
-        padding:
-            MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(20)),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            const EdgeInsets.all(20)),
         textStyle: MaterialStateProperty.all<TextStyle>(
-            TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+            const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
         backgroundColor: MaterialStateProperty.all<Color>(
-          Color.fromRGBO(255, 202, 39, 1),
+          const Color.fromRGBO(255, 202, 39, 1),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(

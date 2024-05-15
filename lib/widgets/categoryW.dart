@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:front_ara/entitys/category.dart';
 import 'dart:developer' as developer;
 
+//Widget de cada una de las categorias  y sus metodos
 class CategoryW extends StatelessWidget {
   List<Category> categorias = [];
   double width = 0;
@@ -21,6 +22,7 @@ class CategoryW extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {
+                    //Metodo para cargar productos de cada categoria
                     onCategorySelected(categorias[index]);
                   },
                   child: Stack(

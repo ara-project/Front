@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/oauthC.dart';
+import 'package:front_ara/controllers/personaC.dart';
+import 'dart:developer' as developer;
 
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:front_ara/services/personasS.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,21 +13,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final List<String> _scopes = <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ];
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    // Optional clientId
-    serverClientId:
-        '521082561398-dp8rgoob5mf0bvhpp40q8gltcjke56eh.apps.googleusercontent.com',
-    scopes: <String>[
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  PersonasS personas = PersonasS();
+  personaC personac = personaC();
+  oauthC oauht = new oauthC();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    validtoken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,61 +50,204 @@ class _LoginState extends State<Login> {
                     ])),
                 child: Padding(
                     padding: const EdgeInsets.all(40),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            'assets/aralog.png',
-                            height: height * 0.2,
-                          ),
-                          SizedBox(height: (0.04 * height)),
-                          TextFormField(
-                            controller: _correoController,
-                            decoration: returnInputDecoration("Correo"),
-                          ),
-                          SizedBox(height: (0.04 * height)),
-                          TextFormField(
-                            controller: _contrasenaController,
-                            decoration: returnInputDecoration("Contraseña"),
-                          ),
-                          SizedBox(height: (0.04 * height)),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/perfil');
-                            },
-                            child: const Text('Iniciar sesion'),
-                          ),
-                          SizedBox(height: (0.04 * height)),
-                          ElevatedButton(
-                            onPressed: () {
-                              _signInWithGoogle();
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/googlelog.png',
-                                  width: 24,
-                                  height: 24,
+                    child: Form(
+                        key: _formKey,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'assets/aralog.png',
+                                height: height * 0.2,
+                              ),
+                              SizedBox(height: (0.04 * height)),
+                              //Caja de texto Usuario
+                              TextFormField(
+                                controller: _correoController,
+                                decoration: returnInputDecoration("Usuario"),
+                                validator: (valor) {
+                                  if (valor != null) {
+                                    return personas.validateUser(valor);
+                                  } else {
+                                    return "El campo esta vacio";
+                                  }
+                                },
+                              ),
+                              SizedBox(height: (0.04 * height)),
+                              //Caja de texto contraseña
+                              TextFormField(
+                                obscureText: true,
+                                controller: _contrasenaController,
+                                decoration: returnInputDecoration("Contraseña"),
+                                validator: (valor) {
+                                  if (valor != null) {
+                                    return personas.validatePass(valor);
+                                  } else {
+                                    return "El campo esta vacio";
+                                  }
+                                },
+                              ),
+                              SizedBox(height: (0.04 * height)),
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Login();
+                                  } else {}
+                                },
+                                child: const Text('Iniciar sesion'),
+                              ),
+                              SizedBox(height: (0.04 * height)),
+                              ElevatedButton(
+                                onPressed: () {
+                                  _signInWithGoogle();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/googlelog.png',
+                                      width: 24,
+                                      height: 24,
+                                    ),
+                                    const Text("Iniciar sesión con Google")
+                                  ],
                                 ),
-                                const Text("Iniciar sesión con Google")
-                              ],
-                            ),
-                          ),
-                        ])))));
+                              ),
+                            ]))))));
   }
 
-  _signInWithGoogle() {
-    Navigator.pushNamed(context, '/home');
-
-    /*  await _googleSignIn.signIn();
-    final bool isAuthorized = await _googleSignIn.requestScopes(_scopes);
-    if (isAuthorized) {
-      print("hola");
-    }*/
+  //Metodo para ingreasr el usuario;
+  Login() async {
+    //Validacion de las condiciones del usuario
+    var s = await personac.loginN(
+        _correoController.text, _contrasenaController.text);
+    developer.log(s.toString());
+    if (s == '1') {
+      Navigator.pushNamed(context, '/home');
+    } else {
+      //Sino se ingresa se muestra cuadro de texto
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            //   title: const Text("Título del diálogo"),
+            content: const Text("No se pudo iniciar sesion de forma correcta"),
+            contentTextStyle: const TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Cierra el diálogo
+                },
+                child: const Text(
+                  "Cerrar",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
+  //Login de usuario con google
+  _signInWithGoogle() async {
+    try {
+      String s = await oauht.siging();
+
+      switch (s) {
+        //Inicio de sesion exitoso
+        case '1':
+          developer.log('Inicio de sesion exitoso');
+          Navigator.pushNamed(context, '/home');
+          break;
+        case '2':
+          //Usuario ya existe inciar sesion
+          developer.log('Usuario no existe');
+          Navigator.pushNamed(context, '/register');
+          break;
+
+        case '3':
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: const Text("No se pudo Registrar de forma correcta"),
+                contentTextStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Cierra el diálogo
+                    },
+                    child: const Text(
+                      "Cerrar",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+          break;
+
+        default:
+          break;
+      }
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            //   title: const Text("Título del diálogo"),
+            content: const Text("No se pudo iniciar sesion de forma correcta"),
+            contentTextStyle: const TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Cierra el diálogo
+                },
+                child: const Text(
+                  "Cerrar",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+// Metodo validacion de tokens init
+  validtoken() async {
+    String s = await personac.validToken();
+
+    switch (s) {
+      //Inicio de sesion exitoso
+      case '1':
+        developer.log('Inicio de sesion exitoso');
+        Navigator.pushNamed(context, '/home');
+        break;
+      default:
+        break;
+    }
+  }
+
+//Metodo para decorar los inputs
   InputDecoration returnInputDecoration(String data) {
     return InputDecoration(
       fillColor: Colors.white,
@@ -113,6 +256,8 @@ class _LoginState extends State<Login> {
         borderSide: BorderSide(color: Colors.black), // Color del borde
       ),
       labelText: data,
+      errorStyle: const TextStyle(
+          color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       contentPadding:
           const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),

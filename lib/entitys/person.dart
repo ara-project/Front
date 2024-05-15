@@ -7,6 +7,7 @@ class Personas {
   String correo;
   String contrasena;
   String usuario;
+  String identification = '';
 
   Personas({
     required this.cedula,
@@ -18,4 +19,25 @@ class Personas {
     required this.contrasena,
     required this.usuario,
   });
+  factory Personas.fromJson(Map<String, dynamic> json) {
+    return Personas(
+        cedula: json['identification'] ?? 0,
+        primerNombre: json['name'] ?? 0,
+        primerApellido: json['lastname'] ?? 0,
+        correo: json['email'] ?? 0,
+        segundoApellido: '',
+        contrasena: '',
+        usuario: '',
+        segundoNombre: '');
+  }
 }
+
+/**Personas(
+          cedula: '',
+          primerNombre: '',
+          segundoNombre: '',
+          primerApellido: '',
+          segundoApellido: '',
+          correo: '',
+          contrasena: '',
+          usuario: ''); */

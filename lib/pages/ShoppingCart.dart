@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:front_ara/widgets/ProductWidget.dart';
 import 'dart:developer' as developer;
@@ -9,7 +7,6 @@ import 'package:money2/money2.dart';
 class ShoppingCart extends StatefulWidget {
   final Map<Product, int> cart;
   ShoppingCart({required this.cart});
-
   @override
   _ShoppingCartState createState() => _ShoppingCartState();
 }
@@ -57,8 +54,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
               child: Column(
                 children: [
                   Text(
-                    'cant.' + quantity.toString(),
-                    style: TextStyle(
+                    'cant. ${quantity.toString()}',
+                    style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87),
@@ -124,7 +121,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   style: TextStyle(
                       fontSize: fontsize, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 Text(
                   total,
                   style: TextStyle(fontSize: fontsize),
@@ -133,20 +130,20 @@ class _ShoppingCartState extends State<ShoppingCart> {
             ),
             const Divider(height: 20),
             TextButton(
-              onPressed: () => {print("Vas a pagar?")},
-              child: Text(
-                "Continuear Compra",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: fontsize,
-                    fontWeight: FontWeight.bold),
-              ),
+              onPressed: () => {print("Metodos de pago")},
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.circular(10), // Define la forma del borde
                 ),
+              ),
+              child: Text(
+                "Continuar Compra",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: fontsize,
+                    fontWeight: FontWeight.bold),
               ),
             )
           ],
@@ -155,6 +152,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
     );
   }
 
+  //Calcular el monto total en el carrito de compras
   void totalM() {
     double subtotal = 0;
     widget.cart.keys.toList().forEach((element) {
