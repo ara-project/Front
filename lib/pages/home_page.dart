@@ -42,7 +42,9 @@ class _homeState extends State<home> {
                 padding: EdgeInsets.all(0),
                 child: Row(
                   children: [
-                    IconButton(onPressed: () => {}, icon: Icon(Icons.reorder)),
+                    IconButton(onPressed: () => {
+                      Navigator.pushNamed(context, '/perfil')
+                    }, icon: Icon(Icons.reorder)),
                     Container(
                         height: height * 0.05,
                         width: width * 0.6,
