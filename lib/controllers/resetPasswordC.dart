@@ -2,10 +2,11 @@ import 'package:http/http.dart' as http;
 import 'dart:developer' as developer;
 import 'package:front_ara/entitys/password.dart';
 import 'dart:convert';
+import 'package:front_ara/config.dart';
 
 class ResetPasswordC {
   Future<String> resetPassword(Resetpassword request) async {
-    var url = Uri.parse('http://localhost:8080/personas/resetPassword');
+    var url = Uri.parse('${MyConfig.uri}/personas/resetPassword');
     var body = jsonEncode({
       "token": request.token,
       "password": request.password,
@@ -26,6 +27,7 @@ class ResetPasswordC {
         return response.body;
       }
     } catch (e) {
+      print(e.toString());
       return e.runtimeType.toString();
     }
   }
