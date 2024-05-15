@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front_ara/entitys/person.dart';
 
@@ -5,6 +6,8 @@ class Perfil extends StatelessWidget {
   Personas usuario;
   Perfil({super.key, required this.usuario});
 
+  TextEditingController nombreController = TextEditingController();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
