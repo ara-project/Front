@@ -167,6 +167,7 @@ class personaC {
   //Registro de usuario con google
   Future<String> registerG(Personas p) async {
     var url = Uri.parse('${MyConfig.uri}/Oauth/register');
+    developer.log(p.urlPhoto);
     var body = jsonEncode({
       "identification": p.identification,
       "name": p.primerNombre,
@@ -176,15 +177,14 @@ class personaC {
       "email": p.correo,
       "username": p.usuario,
       "role": "CUSTOMER",
-      "urlPhoto":p.urlPhoto,
-      "enabled": true,
+      "urlPhoto": p.urlPhoto.toString()
     });
     developer.log('todo bien: ${body.toString()}');
 
     try {
       var response = await http.post(
         url,
-        body: body,
+        body: body.toString(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

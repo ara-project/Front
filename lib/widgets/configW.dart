@@ -14,11 +14,17 @@ class configW extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Center(
-        heightFactor: height,
+    return Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
+                stops: [0.7, 0.2],
+                colors: [Color.fromRGBO(236, 117, 35, 1), Colors.white])),
         child: Padding(
           padding: const EdgeInsets.all(40),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
                   onPressed: () async {
@@ -28,20 +34,38 @@ class configW extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => MainPage()));
                     });
                   },
-                  child: const Row(children: [
-                    Icon(Icons.logout), // Icono para "Información Usuario"
+                  child: Row(children: [
+                    Icon(
+                      Icons.logout,
+                      color: Colors.black,
+                    ), // Icono para "Información Usuario"
                     SizedBox(width: 8), // Espacio entre el icono y el texto
-                    Text("Cerrar sesión"),
+                    Text(
+                      "Cerrar sesión",
+                      style: _styleText(),
+                    ),
                   ])),
               TextButton(
                 onPressed: () async {
                   await infoUser(context);
                 },
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.person), // Icono para "Información Usuario"
-                    SizedBox(width: 8), // Espacio entre el icono y el texto
-                    Text("Información Usuario"),
+                    Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ), // Icono para "Información Usuario"
+                    SizedBox(width: 8),
+                    Container(
+                      width: 120,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        "Información Usuario",
+                        style: _styleText(),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -49,11 +73,23 @@ class configW extends StatelessWidget {
                 onPressed: () async {
                   Navigator.pushNamed(context, '/resetPassword');
                 },
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.lock), // Icono para "Cambiar Contraseña"
+                    Icon(
+                      Icons.lock,
+                      color: Colors.black,
+                    ), // Icono para "Cambiar Contraseña"
                     SizedBox(width: 8), // Espacio entre el icono y el texto
-                    Text("Cambiar Contraseña"),
+                    Container(
+                      width: 120,
+                      child: Text(
+                        overflow: TextOverflow.fade,
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        "Cambiar Contraseña",
+                        style: _styleText(),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -75,5 +111,14 @@ class configW extends StatelessWidget {
     } else {
       await closeSesion();
     }
+  }
+
+  //Style text
+  TextStyle _styleText() {
+    return TextStyle(
+        fontSize: 25,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.bold,
+        color: Colors.black);
   }
 }

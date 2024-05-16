@@ -16,7 +16,7 @@ class _ResetPasswordState extends State<Reset> {
   TextEditingController _newPasswordController = TextEditingController();
   TextEditingController _confirmNewPasswordController = TextEditingController();
   personaC resetPasswordC = personaC();
-
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -50,7 +50,7 @@ class _ResetPasswordState extends State<Reset> {
                       SizedBox(height: (0.02 * height)),
                       TextFormField(
                         controller: _passwordController,
-                        //keyboardType: TextInputType.number,
+                        obscureText: _obscureText,
                         decoration: returnInputDecoration("Contraseña actual"),
                         validator: (value) {
                           if (value == null) {
@@ -61,7 +61,7 @@ class _ResetPasswordState extends State<Reset> {
                       SizedBox(height: (0.02 * height)),
                       TextFormField(
                         controller: _newPasswordController,
-                        //keyboardType: TextInputType.number,
+                        obscureText: _obscureText,
                         decoration: returnInputDecoration("Nueva Contraseña"),
                         validator: (value) {
                           if (value == null) {
@@ -72,7 +72,7 @@ class _ResetPasswordState extends State<Reset> {
                       SizedBox(height: (0.02 * height)),
                       TextFormField(
                         controller: _confirmNewPasswordController,
-                        //keyboardType: TextInputType.number,
+                        obscureText: _obscureText,
                         decoration:
                             returnInputDecoration("Confirmar Nueva Contraseña"),
                         validator: (value) {
@@ -97,17 +97,44 @@ class _ResetPasswordState extends State<Reset> {
 
   InputDecoration returnInputDecoration(String data) {
     return InputDecoration(
-      fillColor: Colors.white,
-      filled: true,
-      border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-          borderRadius: BorderRadius.all(Radius.circular(0))),
-      labelText: data,
-      hintText: data,
-      errorStyle: const TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-      floatingLabelBehavior: FloatingLabelBehavior.never,
-    );
+        fillColor: Colors.black.withOpacity(0.10),
+        filled: true,
+        enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(
+              width: 0,
+              style: BorderStyle.none,
+            )),
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(0)),
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 1,
+              style: BorderStyle.none,
+            )),
+        focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(0)),
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 1,
+              style: BorderStyle.none,
+            )),
+        hintStyle: const TextStyle(color: Colors.white),
+        labelText: data,
+        errorStyle: const TextStyle(
+            color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        labelStyle: TextStyle(color: Colors.white),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.visibility),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ));
   }
 
   void _resetPassword() async {

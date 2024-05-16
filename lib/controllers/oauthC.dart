@@ -66,7 +66,6 @@ class oauthC {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser != null) {
-        developer.log(googleUser.photoUrl!.toString());
         var name = googleUser.displayName?.split(' ');
         Personas p = Personas(
             cedula: ' ',
@@ -79,6 +78,8 @@ class oauthC {
             contrasena: '',
             usuario: '');
         p.identification = googleUser.id;
+        p.urlPhoto = googleUser.photoUrl ?? '';
+        developer.log(googleUser.photoUrl!.toString());
 
         return await personasC.registerG(p);
       } else {
