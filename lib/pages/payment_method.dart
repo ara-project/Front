@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/widgets/form_payment.dart';
 
 class PaymentMethod extends StatefulWidget {
   const PaymentMethod({super.key});
@@ -253,7 +254,14 @@ class _PaymentMethodState extends State<PaymentMethod> {
                   ),
                   SizedBox(height: 70),
                   TextButton(
-                    onPressed: () => {print("Hola")},
+                    onPressed: () => {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomFormDialog();
+                        },
+                      )
+                    },
                     style: TextButton.styleFrom(
                       backgroundColor: Color(0xFFDB3022),
                       shape: RoundedRectangleBorder(
