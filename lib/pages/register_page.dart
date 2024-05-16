@@ -198,10 +198,13 @@ class _RegisterState extends State<Register> {
     switch (s) {
       case '1':
         developer.log('Inicio de sesion exitoso');
+        await personac.loginN(usuario, contrasena);
         Navigator.pushNamed(context, '/home');
         break;
       case '2':
         developer.log('Usuario ya existe');
+        await personac.loginN(usuario, contrasena);
+
         Navigator.pushNamed(context, '/home');
         break;
       case '3':
@@ -245,11 +248,14 @@ class _RegisterState extends State<Register> {
       //Inicio de sesion exitoso
       case '1':
         developer.log('Inicio de sesion exitoso');
+        await oauthc.siging();
         Navigator.pushNamed(context, '/home');
         break;
       case '2':
         //Usuario ya existe inciar sesion
         developer.log('Usuario ya existe');
+        await oauthc.siging();
+
         Navigator.pushNamed(context, '/home');
         break;
 

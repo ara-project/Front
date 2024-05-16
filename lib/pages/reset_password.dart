@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/password.dart';
 import 'package:front_ara/controllers/resetPasswordC.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,7 @@ class _ResetPasswordState extends State<Reset> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _newPasswordController = TextEditingController();
   TextEditingController _confirmNewPasswordController = TextEditingController();
-  ResetPasswordC resetPasswordC = ResetPasswordC();
+  personaC resetPasswordC = personaC();
 
   @override
   Widget build(BuildContext context) {

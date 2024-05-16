@@ -1,4 +1,5 @@
 import 'package:front_ara/controllers/oauthC.dart';
+import 'package:front_ara/entitys/password.dart';
 import 'package:front_ara/entitys/person.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -52,6 +53,7 @@ class personaC {
           usuario: '');
     }
     var url = Uri.parse('${MyConfig.uri}/personas/info');
+    developer.log(token);
     Map<String, String> headers = {
       'Authorization': 'Bearer $token',
     };
@@ -64,7 +66,7 @@ class personaC {
         return Personas.fromJson(jsonData);
       } else {
         //await prefs.remove('token');
-        developer.log('Error: Status code ${response.body}');
+        developer.log('Error: Status code ${response.statusCode}');
         return Personas(
             cedula: '',
             primerNombre: '',
@@ -77,7 +79,6 @@ class personaC {
       }
     } catch (e) {
       //await prefs.remove('token');
-
       developer.log('Error de conexión aqui: $e');
       return Personas(
           cedula: '',
@@ -208,17 +209,22 @@ class personaC {
 
   //Registro de usuario sin google
   Future<String> register(Personas p) async {
+    //Sino hay usuario no se registra
+    if (p.usuario.isEmpty) {
+      return '3';
+    }
     var url = Uri.parse('${MyConfig.uri}/personas/register');
     var body = jsonEncode({
-      "dni": p.cedula,
-      "identification": p.identification,
-      "name": p.primerNombre,
-      "secondName": p.segundoNombre,
-      "lastname": p.primerApellido,
-      "secondLastname": p.segundoApellido,
-      "email": p.correo,
+      "dni": p.cedula.toString(),
+      "identification": p.identification.toString(),
+      "name": p.primerNombre.toString(),
+      "secondName": p.segundoNombre.toString(),
+      "lastname": p.primerApellido.toString(),
+      "secondLastname": p.segundoApellido.toString(),
+      "email": p.correo.toString(),
       "role": "CUSTOMER",
-      "password": p.contrasena,
+      "username": p.usuario.toString(),
+      "password": p.contrasena.toString(),
       "enabled": true,
     });
     developer.log('todo bien: ${body.toString()}');
@@ -233,15 +239,13 @@ class personaC {
       );
 
       if (response.statusCode == 200) {
-        dynamic jsonData = jsonDecode(response.body);
-
-        developer.log('todo bien: ${jsonData.toString()}');
+        //dynamic jsonData = jsonDecode(response.body);
 
         return '1';
       } else {
         if (response.statusCode == 450) {
           developer.log('ya existe: ${response.statusCode}');
-
+    
           return '2';
         }
         developer.log('Error: ${response.statusCode}');
@@ -250,6 +254,33 @@ class personaC {
     } catch (e) {
       developer.log('Error de conexión aqui: $e');
       return '3';
+    }
+  }
+
+  //Reset password
+  Future<String> resetPassword(Resetpassword request) async {
+    var url = Uri.parse('${MyConfig.uri}/personas/resetPassword');
+    var body = jsonEncode({
+      "token": request.token,
+      "password": request.password,
+      "newPassword": request.newPassword,
+      "confirmNewPassword": request.confirmNewPassword
+    });
+    try {
+      var response = await http.put(
+        url,
+        body: body,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return response.body;
+      }
+    } catch (e) {
+      return e.runtimeType.toString();
     }
   }
 }
