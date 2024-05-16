@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -30,7 +31,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
         body: SingleChildScrollView(
             child: Container(
@@ -76,7 +76,7 @@ class _LoginState extends State<Login> {
                               SizedBox(height: (0.04 * height)),
                               //Caja de texto contraseña
                               TextFormField(
-                                obscureText: true,
+                                obscureText: _obscureText,
                                 controller: _contrasenaController,
                                 decoration: returnInputDecoration("Contraseña"),
                                 validator: (valor) {
@@ -250,17 +250,46 @@ class _LoginState extends State<Login> {
 //Metodo para decorar los inputs
   InputDecoration returnInputDecoration(String data) {
     return InputDecoration(
-      fillColor: Colors.white,
+      fillColor: Colors.black.withOpacity(0.10),
       filled: true,
+      enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          )),
       border: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black), // Color del borde
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 1,
+            style: BorderStyle.none,
+          )),
+      focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 1,
+            style: BorderStyle.none,
+          )),
+      hintStyle: const TextStyle(color: Colors.white),
       labelText: data,
       errorStyle: const TextStyle(
           color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
+      labelStyle: TextStyle(color: Colors.white),
       contentPadding:
           const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
+      suffixIcon: data == 'Contraseña'
+          ? IconButton(
+              icon: Icon(Icons.visibility),
+              onPressed: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            )
+          : null,
     );
   }
 }

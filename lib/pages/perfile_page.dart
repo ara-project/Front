@@ -5,11 +5,14 @@ import 'package:front_ara/entitys/person.dart';
 class Perfil extends StatelessWidget {
   Personas usuario;
   Perfil({super.key, required this.usuario});
-
+  double width = 0;
+  double height = 0;
   TextEditingController nombreController = TextEditingController();
- 
+
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -27,14 +30,16 @@ class Perfil extends StatelessWidget {
                 padding: const EdgeInsets.all(30),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.supervised_user_circle_rounded,
-                          size: 100,
-                          color: Colors.black,
-                        ),
+                        usuario.urlPhoto.isEmpty
+                            ? Icon(
+                                Icons.supervised_user_circle_rounded,
+                                size: 100,
+                                color: Colors.black,
+                              )
+                            : _buildProductImage(usuario.urlPhoto),
                       ],
                     ),
                     Text(usuario.usuario),
@@ -124,5 +129,25 @@ class Perfil extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  Widget _buildProductImage(String imageUrl) {
+    try {
+      return Image.network(
+        height: height * 0.135,
+        width: width * 0.35,
+        imageUrl,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      );
+    } catch (e) {
+      return const SizedBox();
+    }
   }
 }

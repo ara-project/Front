@@ -176,6 +176,7 @@ class personaC {
       "email": p.correo,
       "username": p.usuario,
       "role": "CUSTOMER",
+      "urlPhoto":p.urlPhoto,
       "enabled": true,
     });
     developer.log('todo bien: ${body.toString()}');

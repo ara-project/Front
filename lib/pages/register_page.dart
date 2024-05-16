@@ -13,6 +13,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool _obscureText = true;
   oauthC oauthc = oauthC();
   PersonasS personaS = PersonasS();
   final _formKey = GlobalKey<FormState>();
@@ -117,7 +118,7 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     controller: _contrasenaController,
                     decoration: returnInputDecoration("Contraseña"),
-                    obscureText: true,
+                    obscureText: _obscureText,
                     validator: (value) {
                       if (value != null) {
                         return personaS.validatePass(value);
@@ -128,24 +129,23 @@ class _RegisterState extends State<Register> {
                   ),
                   const Divider(height: 40),
                   ElevatedButton(
-                    style: ButtonStyle(
-                      shadowColor: MaterialStateProperty.all(
-                          Colors.grey), // Color de la sombra
-                      elevation:
-                          MaterialStateProperty.all(5), // Elevación del botón
-                      padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(
-                            vertical: 15), // Espaciado interno vertical
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Radio de borde del botón
                       ),
-                      minimumSize: MaterialStateProperty.all(
-                          Size(50, 50)), // Tamaño mínimo del botón
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _register();
                       } else {}
                     },
-                    child: const Text('Registrarse'),
+                    child: Text(
+                      "Registrarse", // Texto del botón
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold, // Peso de fuente del texto
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
@@ -204,7 +204,6 @@ class _RegisterState extends State<Register> {
       case '2':
         developer.log('Usuario ya existe');
         await personac.loginN(usuario, contrasena);
-
         Navigator.pushNamed(context, '/home');
         break;
       case '3':
@@ -295,16 +294,46 @@ class _RegisterState extends State<Register> {
 
   InputDecoration returnInputDecoration(String data) {
     return InputDecoration(
-      fillColor: Colors.white,
+      fillColor: Colors.black.withOpacity(0.10),
       filled: true,
+      enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          )),
       border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 1,
+            style: BorderStyle.none,
+          )),
+      focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 1,
+            style: BorderStyle.none,
+          )),
+      hintStyle: const TextStyle(color: Colors.white),
       labelText: data,
-      hintText: data,
       errorStyle: const TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+          color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
+      labelStyle: TextStyle(color: Colors.white),
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 10, horizontal: 12.0),
+      suffixIcon: data == 'Contraseña'
+          ? IconButton(
+              icon: Icon(Icons.visibility),
+              onPressed: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            )
+          : null,
     );
   }
 }
