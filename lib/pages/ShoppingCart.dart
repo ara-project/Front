@@ -20,6 +20,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
     super.initState();
   }
 
+  double totalContext = 0;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -160,8 +161,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
             widget.cart.isEmpty
                 ? SizedBox()
                 : TextButton(
-                    onPressed: () =>
-                        {Navigator.pushNamed(context, '/selectPayment')},
+                    onPressed: () => {
+                      Navigator.pushNamed(context, '/selectPayment',
+                          arguments: totalContext)
+                    },
                     style: TextButton.styleFrom(
                       alignment: Alignment
                           .bottomCenter, // Align the content within the button
@@ -193,6 +196,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
       subtotal = subtotal + (element.price * (widget.cart[element] ?? 0));
     });
     developer.log(subtotal.toString());
+    totalContext = subtotal;
     total =
         Money.parseWithCurrency(subtotal.toString(), Currency.create('USD', 2))
             .format('S###,###');
