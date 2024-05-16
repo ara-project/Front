@@ -259,7 +259,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return CustomFormDialog();
+                          return toogleFormPay(_type);
                         },
                       )
                     },
@@ -284,4 +284,44 @@ class _PaymentMethodState extends State<PaymentMethod> {
           ),
         ));
   }
+}
+
+CustomFormDialog toogleFormPay(int value) {
+  switch (value) {
+    case 1:
+      return CustomFormDialog(
+        titleBar: "Nequi",
+        firstInput: "Numero de cuenta",
+        secondInput: "Nombre del titular",
+        thirdInput: "Codigo dinamico",
+        fourthInput: "Cedula",
+        fifthInput: "Otro campo requerido",
+      );
+    case 2:
+      return CustomFormDialog(
+        titleBar: "Tarjeta de credito",
+        firstInput: "Numero de cuenta",
+        secondInput: "Nombre del titular",
+        thirdInput: "Fecha de vencimiento",
+        fourthInput: "CVV",
+        fifthInput: "Numero de cuotas",
+      );
+    case 3:
+      return CustomFormDialog(
+        titleBar: "Ahorro a la mano",
+        firstInput: "Numero de cuenta",
+        secondInput: "Nombre del titular",
+        thirdInput: "Codigo dinamico",
+        fourthInput: "Cedula",
+        fifthInput: "Otro campo requerido",
+      );
+  }
+  return CustomFormDialog(
+    titleBar: "Default",
+    firstInput: "Default",
+    secondInput: "Default",
+    thirdInput: "Default",
+    fourthInput: "Default",
+    fifthInput: "Default",
+  );
 }
