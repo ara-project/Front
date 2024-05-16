@@ -3,7 +3,6 @@ import 'package:front_ara/widgets/form_payment.dart';
 
 class PaymentMethod extends StatefulWidget {
   const PaymentMethod({super.key});
-
   @override
   State<PaymentMethod> createState() => _PaymentMethodState();
 }
@@ -22,6 +21,8 @@ class _PaymentMethodState extends State<PaymentMethod> {
   @override
   Widget build(BuildContext context) {
     Size sise = MediaQuery.of(context).size;
+    var subtotal = ModalRoute.of(context)?.settings.arguments.toString() ?? "";
+    var total = (double.tryParse(subtotal) ?? 0) + 5000;
     return Scaffold(
         appBar: AppBar(
           title: Text('Seleccionar metodo de compra'),
@@ -201,7 +202,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                             color: Colors.grey),
                       ),
                       Text(
-                        "200.000",
+                        subtotal,
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
@@ -244,7 +245,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                             color: Colors.grey),
                       ),
                       Text(
-                        "205.000",
+                        total.toString(),
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
