@@ -64,7 +64,9 @@ class oauthC {
   Future<String> Register() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
       if (googleUser != null) {
+        developer.log(googleUser.photoUrl!.toString());
         var name = googleUser.displayName?.split(' ');
         Personas p = Personas(
             cedula: ' ',
@@ -73,6 +75,7 @@ class oauthC {
             primerApellido: name[2],
             segundoApellido: name[3],
             correo: googleUser.email,
+            urlPhoto: googleUser.photoUrl ?? '',
             contrasena: '',
             usuario: '');
         p.identification = googleUser.id;

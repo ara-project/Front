@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/password.dart';
-import 'package:front_ara/controllers/resetPasswordC.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Reset extends StatefulWidget {
@@ -24,7 +23,7 @@ class _ResetPasswordState extends State<Reset> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color.fromRGBO(236, 117, 35, 1),
+          backgroundColor: const Color.fromRGBO(236, 117, 35, 1),
           title: const Text(
             "Cambiar contraseña",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -51,7 +50,7 @@ class _ResetPasswordState extends State<Reset> {
                       SizedBox(height: (0.02 * height)),
                       TextFormField(
                         controller: _passwordController,
-                        keyboardType: TextInputType.number,
+                        //keyboardType: TextInputType.number,
                         decoration: returnInputDecoration("Contraseña actual"),
                         validator: (value) {
                           if (value == null) {
@@ -62,7 +61,7 @@ class _ResetPasswordState extends State<Reset> {
                       SizedBox(height: (0.02 * height)),
                       TextFormField(
                         controller: _newPasswordController,
-                        keyboardType: TextInputType.number,
+                        //keyboardType: TextInputType.number,
                         decoration: returnInputDecoration("Nueva Contraseña"),
                         validator: (value) {
                           if (value == null) {
@@ -73,7 +72,7 @@ class _ResetPasswordState extends State<Reset> {
                       SizedBox(height: (0.02 * height)),
                       TextFormField(
                         controller: _confirmNewPasswordController,
-                        keyboardType: TextInputType.number,
+                        //keyboardType: TextInputType.number,
                         decoration:
                             returnInputDecoration("Confirmar Nueva Contraseña"),
                         validator: (value) {

@@ -50,7 +50,8 @@ class personaC {
           segundoApellido: '',
           correo: '',
           contrasena: '',
-          usuario: '');
+          usuario: '',
+          urlPhoto: '');
     }
     var url = Uri.parse('${MyConfig.uri}/personas/info');
     developer.log(token);
@@ -75,7 +76,8 @@ class personaC {
             segundoApellido: '',
             correo: '',
             contrasena: '',
-            usuario: '');
+            usuario: '',
+            urlPhoto: '');
       }
     } catch (e) {
       //await prefs.remove('token');
@@ -88,7 +90,8 @@ class personaC {
           segundoApellido: '',
           correo: '',
           contrasena: '',
-          usuario: '');
+          usuario: '',
+          urlPhoto: '');
     }
   }
 
@@ -245,7 +248,7 @@ class personaC {
       } else {
         if (response.statusCode == 450) {
           developer.log('ya existe: ${response.statusCode}');
-    
+
           return '2';
         }
         developer.log('Error: ${response.statusCode}');

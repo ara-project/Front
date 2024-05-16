@@ -185,15 +185,15 @@ class _RegisterState extends State<Register> {
     String usuario = _usuarioController.text;
 
     Personas nuevaPersona = Personas(
-      cedula: cedula,
-      primerNombre: primerNombre,
-      segundoNombre: segundoNombre,
-      primerApellido: primerApellido,
-      segundoApellido: segundoApellido,
-      correo: correo,
-      contrasena: contrasena,
-      usuario: usuario,
-    );
+        cedula: cedula,
+        primerNombre: primerNombre,
+        segundoNombre: segundoNombre,
+        primerApellido: primerApellido,
+        segundoApellido: segundoApellido,
+        correo: correo,
+        contrasena: contrasena,
+        usuario: usuario,
+        urlPhoto: '');
     var s = await personac.register(nuevaPersona);
     switch (s) {
       case '1':

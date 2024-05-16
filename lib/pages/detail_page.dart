@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:money2/money2.dart';
 
 class Detailproduct extends StatelessWidget {
   Product product;
+  bool showAdd;
   Function(Product) addProduct;
 
-  Detailproduct({super.key, required this.product, required this.addProduct});
+  Detailproduct(
+      {super.key,
+      required this.product,
+      required this.addProduct,
+      this.showAdd = true});
 
   @override
   Widget build(BuildContext context) {
@@ -63,25 +69,29 @@ class Detailproduct extends StatelessWidget {
                     height: 20,
                   ),
                   Column(
-                    children: [
-                      //Boton agregar al carrito
-                      ElevatedButton(
-                        onPressed: () => {addProduct(product)},
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                return const Color.fromRGBO(236, 117, 35, 1);
-                              },
-                            ),
-                            fixedSize:
-                                MaterialStateProperty.all(Size(width, 50))),
-                        child: const Text(
-                          "Agregar al Carrito",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      )
-                    ],
+                    children: showAdd
+                        ? [
+                            //Boton agregar al carrito
+                            ElevatedButton(
+                              onPressed: () => {addProduct(product)},
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                                      return const Color.fromRGBO(
+                                          236, 117, 35, 1);
+                                    },
+                                  ),
+                                  fixedSize: MaterialStateProperty.all(
+                                      Size(width, 50))),
+                              child: const Text(
+                                "Agregar al Carrito",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            )
+                          ]
+                        : [],
                   )
                 ],
               )),
