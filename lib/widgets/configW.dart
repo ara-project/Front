@@ -24,7 +24,7 @@ class configW extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(40),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               TextButton(
                   onPressed: () async {
@@ -45,6 +45,9 @@ class configW extends StatelessWidget {
                       style: _styleText(),
                     ),
                   ])),
+              SizedBox(
+                height: 30,
+              ),
               TextButton(
                 onPressed: () async {
                   await infoUser(context);
@@ -68,6 +71,9 @@ class configW extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 30,
               ),
               TextButton(
                 onPressed: () async {
@@ -115,10 +121,7 @@ class configW extends StatelessWidget {
 
   //Style text
   TextStyle _styleText() {
-    return TextStyle(
-        fontSize: 25,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.bold,
-        color: Colors.black);
+    return const TextStyle(
+        fontSize: 20, fontStyle: FontStyle.normal, color: Colors.black);
   }
 }

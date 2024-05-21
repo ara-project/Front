@@ -179,9 +179,8 @@ class personaC {
       "role": "CUSTOMER",
       "urlPhoto": p.urlPhoto.toString()
     });
-    developer.log('todo bien: ${body.toString()}');
-
     try {
+      developer.log(body.toString());
       var response = await http.post(
         url,
         body: body.toString(),
@@ -192,14 +191,11 @@ class personaC {
 
       if (response.statusCode == 200) {
         dynamic jsonData = jsonDecode(response.body);
-
         developer.log('todo bien: ${jsonData}');
-
         return '1';
       } else {
         if (response.statusCode == 450) {
           developer.log('ya existe: ${response.statusCode}');
-
           return '2';
         }
         developer.log('Error: ${response.statusCode}');
