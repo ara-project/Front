@@ -32,7 +32,8 @@ class _PaymentMethodState extends State<PaymentMethod> {
           elevation: 0,
           centerTitle: true,
         ),
-        body: SafeArea(
+        body: SingleChildScrollView(
+            child: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Center(
@@ -282,7 +283,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
               ),
             ),
           ),
-        ));
+        )));
   }
 }
 
