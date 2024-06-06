@@ -51,7 +51,7 @@ class OrderConfirm extends StatelessWidget {
                             'Vamos a ver que tal',
                             style: TextStyle(fontSize: 16),
                           ),
-                          button()
+                          button(context, '/shippingAdress')
                         ],
                       ),
                       Text(
@@ -74,7 +74,7 @@ class OrderConfirm extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
                     ),
-                    button()
+                    button(context, '/selectPayment')
                   ],
                 ),
                 SizedBox(height: 10),
@@ -223,7 +223,7 @@ class OrderConfirm extends StatelessWidget {
                 SizedBox(height: 70),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/resumeShipping');
+                    Navigator.pushNamed(context, '/successPay');
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFDB3022),
@@ -247,11 +247,13 @@ class OrderConfirm extends StatelessWidget {
   }
 }
 
-TextButton button() {
+TextButton button(context, routeName) {
   return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, routeName);
+      },
       child: Text(
-        'Changue',
+        'Cambiar',
         style: TextStyle(
             fontSize: 17,
             color: Color(0xFFDB3022),
