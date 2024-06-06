@@ -16,13 +16,16 @@ class configW extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Container(
         child: Padding(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.fromLTRB(20, 70, 0, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             "Menú del usuario",
-            style: _styleText(),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+          ),
+          SizedBox(
+            height: 30,
           ),
           TextButton(
             onPressed: () async {
@@ -31,7 +34,7 @@ class configW extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.person,
+                  Icons.watch_later_outlined,
                   color: Colors.black,
                 ),
                 SizedBox(width: 8),
@@ -52,11 +55,13 @@ class configW extends StatelessWidget {
             height: 30,
           ),
           TextButton(
-            onPressed: () async {},
+            onPressed: () async {
+              formas_pago(context);
+            },
             child: Row(
               children: [
                 Icon(
-                  Icons.lock,
+                  Icons.credit_card,
                   color: Colors.black,
                 ),
                 SizedBox(width: 8),
@@ -104,11 +109,13 @@ class configW extends StatelessWidget {
             height: 30,
           ),
           TextButton(
-            onPressed: () async {},
+            onPressed: () async {
+              mi_presupuesto(context);
+            },
             child: Row(
               children: [
                 Icon(
-                  Icons.person,
+                  Icons.wallet,
                   color: Colors.black,
                 ), // Icono para "Información Usuario"
                 SizedBox(width: 8),
@@ -124,6 +131,9 @@ class configW extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          SizedBox(
+            height: 30,
           ),
           TextButton(
               onPressed: () async {
@@ -163,6 +173,69 @@ class configW extends StatelessWidget {
         ),
       );
     } else {
+      validar_usuaio_logeado(context);
+      await closeSesion();
+    }
+  }
+
+  //historial de compra:
+  historial_compra(context) async {
+    Personas s = await personac.infoUser();
+    if (s.correo.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Perfil(usuario: s),
+        ),
+      );
+    } else {
+      validar_usuaio_logeado(context);
+      await closeSesion();
+    }
+  }
+
+  //Formas de pago:
+  formas_pago(context) async {
+    Personas s = await personac.infoUser();
+    if (s.correo.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Perfil(usuario: s),
+        ),
+      );
+    } else {
+      validar_usuaio_logeado(context);
+      await closeSesion();
+    }
+  }
+
+  //Mi presupuesto:
+  mi_presupuesto(context) async {
+    Personas s = await personac.infoUser();
+    if (s.correo.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Perfil(usuario: s),
+        ),
+      );
+    } else {
+      validar_usuaio_logeado(context);
+      await closeSesion();
+    }
+  }
+
+  //Style text
+  TextStyle _styleText() {
+    return const TextStyle(
+        fontSize: 20, fontStyle: FontStyle.normal, color: Colors.black);
+  }
+
+  Future<bool> validar_usuaio_logeado(context) async {
+    Personas s = await personac.infoUser();
+
+    if (s.correo == "") {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -199,13 +272,9 @@ class configW extends StatelessWidget {
           );
         },
       );
-      await closeSesion();
+      return false;
+    } else {
+      return true;
     }
-  }
-
-  //Style text
-  TextStyle _styleText() {
-    return const TextStyle(
-        fontSize: 20, fontStyle: FontStyle.normal, color: Colors.black);
   }
 }

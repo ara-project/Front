@@ -25,9 +25,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
     var total = (double.tryParse(subtotal) ?? 0) + 5000;
     return Scaffold(
         appBar: AppBar(
-          title: Text('Seleccionar metodo de compra'),
-          leading: BackButton(),
-          backgroundColor: Color(0xFFDB3022),
+          title: const Text('Seleccionar metodo de compra'),
+          leading: const BackButton(),
+          backgroundColor: const Color(0xFFDB3022),
           foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
@@ -35,17 +35,18 @@ class _PaymentMethodState extends State<PaymentMethod> {
         body: SingleChildScrollView(
             child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   Container(
                     width: sise.width,
                     height: 35,
                     decoration: BoxDecoration(
                         border: _type == 1
-                            ? Border.all(width: 1, color: Color(0xFFDB3022))
+                            ? Border.all(
+                                width: 1, color: const Color(0xFFDB3022))
                             : Border.all(width: 0.3, color: Colors.grey),
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.transparent),

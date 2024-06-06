@@ -46,194 +46,208 @@ class _homeState extends State<home> {
     return PopScope(
         canPop: false,
         child: Scaffold(
-            drawerEnableOpenDragGesture: false,
-            key: _scaffoldKey,
-            drawer: Drawer(
-              child: configW(closeSesion: oaucthc.logout),
-            ),
-            appBar: AppBar(
-                automaticallyImplyLeading: false,
-                toolbarHeight: height * 0.10,
-                leadingWidth: width,
-                leading: Container(
-                  decoration: const BoxDecoration(
-                      color: Color.fromRGBO(236, 117, 35, 1)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () => {_openDrawer()},
-                            icon: const Icon(Icons.menu)),
-                        Container(
-                          height: height * 0.05,
-                          width: width * 0.6,
-                          child: SearchAnchor(
-                              viewOnSubmitted: (s) async {
-                                setState(() {
-                                  __controller.closeView(s);
-                                });
-                                if (__controller.text != '') {
-                                  await productc
-                                      .fetchDatassuggestion(__controller.text);
-                                  _fetchDataFuture = suggestionList;
-                                } else {
-                                  fetchData();
-                                }
-                                ;
-                              },
-                              builder: (BuildContext context,
-                                  SearchController controller) {
-                                return SearchBar(
-                                  onTap: () {
-                                    controller.openView();
-                                  },
-                                  onSubmitted: (_) async {
-                                    if (controller.text != '') {
-                                      _fetchDataFuture =
-                                          await productc.fetchDatassuggestion(
-                                              controller.text);
-                                    } else {
-                                      fetchData();
-                                    }
-                                    ;
-                                  },
-                                  onChanged: (_) {
-                                    controller.openView();
-                                  },
-                                  controller: controller,
-                                  hintText: "Buscar productos",
-                                  padding: const MaterialStatePropertyAll<
-                                      EdgeInsets>(EdgeInsets.all(5)),
-                                  leading: const Icon(Icons.search),
-                                );
-                              },
-                              viewBackgroundColor: Colors.white,
-                              viewConstraints:
-                                  BoxConstraints(maxWidth: width * 0.6),
-                              suggestionsBuilder: (BuildContext context,
-                                  SearchController controller) async {
-                                suggestionList = await productc
-                                    .fetchDatassuggestion(controller.text);
-                                return List<ListTile>.generate(
-                                    suggestionList.length, (int index) {
-                                  __controller = controller;
-                                  return ListTile(
-                                    title: Text(suggestionList[index].name),
-                                    onTap: () {
-                                      setState(() {
-                                        controller.closeView(
-                                            suggestionList[index].name);
-                                        _fetchDataFuture = [
-                                          suggestionList[index]
-                                        ];
-                                      });
-                                    },
-                                  );
-                                });
-                              }),
-                        ),
-                        IconButton(
-                            onPressed: () => {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ShoppingCart(cart: shoppingCart),
-                                    ),
-                                  )
+          drawerEnableOpenDragGesture: false,
+          key: _scaffoldKey,
+          drawer: Drawer(
+            child: configW(closeSesion: oaucthc.logout),
+          ),
+          appBar: AppBar(
+              automaticallyImplyLeading: false,
+              toolbarHeight: height * 0.10,
+              leadingWidth: width,
+              leading: Container(
+                decoration:
+                    const BoxDecoration(color: Color.fromRGBO(236, 117, 35, 1)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () => {_openDrawer()},
+                          icon: const Icon(Icons.menu)),
+                      Container(
+                        height: height * 0.05,
+                        width: width * 0.6,
+                        child: SearchAnchor(
+                            viewOnChanged: (s) async {
+                              if (__controller.text != '' ||
+                                  !__controller.text.startsWith(' ')) {
+                                await productc
+                                    .fetchDatassuggestion(__controller.text);
+                                _fetchDataFuture = suggestionList;
+                              } else {
+                                fetchData();
+                              }
+                              ;
+                            },
+                            viewOnSubmitted: (s) async {
+                              setState(() {
+                                __controller.closeView(s);
+                              });
+                              if (__controller.text != '' ||
+                                  !__controller.text.startsWith(' ')) {
+                                await productc
+                                    .fetchDatassuggestion(__controller.text);
+                                _fetchDataFuture = suggestionList;
+                              } else {
+                                fetchData();
+                              }
+                              ;
+                            },
+                            builder: (BuildContext context,
+                                SearchController controller) {
+                              return SearchBar(
+                                onTap: () {
+                                  controller.openView();
                                 },
-                            icon: const Icon(Icons.local_grocery_store)),
-                        IconButton(
-                            onPressed: () async {
-                              var res = await Navigator.push(
+                                onSubmitted: (_) async {
+                                  if (controller.text != '' ||
+                                      !controller.text.startsWith(" ")) {
+                                    _fetchDataFuture = await productc
+                                        .fetchDatassuggestion(controller.text);
+                                  } else {
+                                    fetchData();
+                                  }
+                                  ;
+                                },
+                                onChanged: (_) {
+                                  controller.openView();
+                                },
+                                controller: controller,
+                                hintText: "Buscar productos",
+                                padding:
+                                    const MaterialStatePropertyAll<EdgeInsets>(
+                                        EdgeInsets.all(5)),
+                                leading: const Icon(Icons.search),
+                              );
+                            },
+                            viewBackgroundColor: Colors.white,
+                            viewConstraints:
+                                BoxConstraints(maxWidth: width * 0.6),
+                            suggestionsBuilder: (BuildContext context,
+                                SearchController controller) async {
+                              suggestionList = await productc
+                                  .fetchDatassuggestion(controller.text);
+                              return List<ListTile>.generate(
+                                  suggestionList.length, (int index) {
+                                __controller = controller;
+                                return ListTile(
+                                  title: Text(suggestionList[index].name),
+                                  onTap: () {
+                                    setState(() {
+                                      controller.closeView(
+                                          suggestionList[index].name);
+                                      _fetchDataFuture = [
+                                        suggestionList[index]
+                                      ];
+                                    });
+                                  },
+                                );
+                              });
+                            }),
+                      ),
+                      IconButton(
+                          onPressed: () => {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const SimpleBarcodeScannerPage(),
-                                  ));
-                              if (res is String) {
-                                Product productScan = await productc
-                                    .fetchproductbyid(res.toString());
-                                if (productScan.idProduct > 0) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Detailproduct(
-                                        product: productScan,
-                                        addProduct: addProductShoppingCart,
-                                      ),
+                                        ShoppingCart(cart: shoppingCart),
+                                  ),
+                                )
+                              },
+                          icon: const Icon(Icons.local_grocery_store)),
+                      IconButton(
+                          onPressed: () async {
+                            var res = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SimpleBarcodeScannerPage(),
+                                ));
+                            if (res is String) {
+                              Product productScan = await productc
+                                  .fetchproductbyid(res.toString());
+                              if (productScan.idProduct > 0) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Detailproduct(
+                                      product: productScan,
+                                      addProduct: addProductShoppingCart,
                                     ),
-                                  );
-                                } else {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          child: Center(
-                                            child: Text(res == '-1'
-                                                ? 'No se leyò correctamente el producto.'
-                                                : 'El producto ${res} no se encuentra en lanase de datos.'),
-                                          ),
-                                        );
-                                      });
-                                }
+                                  ),
+                                );
+                              } else {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        child: Center(
+                                          child: Text(res == '-1'
+                                              ? 'No se leyò correctamente el producto.'
+                                              : 'El producto ${res} no se encuentra en lanase de datos.'),
+                                        ),
+                                      );
+                                    });
                               }
-                            },
-                            icon: const Icon(Icons.flip)),
-                      ],
+                            }
+                          },
+                          icon: const Icon(Icons.flip)),
+                    ],
+                  ),
+                ),
+              )),
+          body: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: AlignmentDirectional.topStart,
+                    child: const Text(
+                      "Categorias",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
-                )),
-            body: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: AlignmentDirectional.topStart,
-                      child: const Text(
-                        "Categorias",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
+                  _fetchDataFutureCategory.isNotEmpty
+                      ? Container(
+                          height: 100,
+                          child: CategoryW(
+                            categorias: _fetchDataFutureCategory,
+                            onCategorySelected: (Category selectCategory) =>
+                                {fetchDataCategory(selectCategory)},
+                          ))
+                      : const CircularProgressIndicator(),
+                  SizedBox(height: (0.04 * height)),
+                  Container(
+                    alignment: AlignmentDirectional.topStart,
+                    child: const Text(
+                      "Productos",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    _fetchDataFutureCategory.isNotEmpty
-                        ? Container(
-                            height: 100,
-                            child: CategoryW(
-                              categorias: _fetchDataFutureCategory,
-                              onCategorySelected: (Category selectCategory) =>
-                                  {fetchDataCategory(selectCategory)},
-                            ))
-                        : const CircularProgressIndicator(),
-                    SizedBox(height: (0.04 * height)),
-                    Container(
-                      alignment: AlignmentDirectional.topStart,
-                      child: const Text(
-                        "Productos",
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const Divider(),
-                    _fetchDataFuture.isNotEmpty
-                        ? ProductsW(
-                            addProduct: (Product producto) =>
-                                {addProductShoppingCart(producto)},
-                            products: _fetchDataFuture,
-                          )
-                        : const Expanded(
-                            flex: 5,
-                            child: Center(
-                              child: Text(
-                                "No hay productos disponibles",
-                                style: TextStyle(
-                                    fontSize: 35, fontWeight: FontWeight.bold),
-                              ),
+                  ),
+                  const Divider(),
+                  _fetchDataFuture.isNotEmpty
+                      ? ProductsW(
+                          addProduct: (Product producto) =>
+                              {addProductShoppingCart(producto)},
+                          products: _fetchDataFuture,
+                        )
+                      : const Expanded(
+                          flex: 5,
+                          child: Center(
+                            child: Text(
+                              "No hay productos disponibles",
+                              style: TextStyle(
+                                  fontSize: 35, fontWeight: FontWeight.bold),
                             ),
-                          )
-                  ],
-                ))));
+                          ),
+                        )
+                ],
+              )),
+        ));
   }
 
   //Abriel la ventana izquierda
