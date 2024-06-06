@@ -71,7 +71,7 @@ class _homeState extends State<home> {
                         child: SearchAnchor(
                             viewOnChanged: (s) async {
                               if (__controller.text != '' ||
-                                  !__controller.text.startsWith(' ')) {
+                                  !__controller.text.startsWith('')) {
                                 await productc
                                     .fetchDatassuggestion(__controller.text);
                                 _fetchDataFuture = suggestionList;
