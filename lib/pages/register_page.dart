@@ -254,7 +254,6 @@ class _RegisterState extends State<Register> {
         //Usuario ya existe inciar sesion
         developer.log('Usuario ya existe');
         await oauthc.siging();
-
         Navigator.pushNamed(context, '/home');
         break;
 

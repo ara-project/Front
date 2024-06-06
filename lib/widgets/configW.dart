@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/person.dart';
+import 'package:front_ara/pages/home_page.dart';
 import 'package:front_ara/pages/main_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 
@@ -31,7 +32,7 @@ class configW extends StatelessWidget {
                     await closeSesion();
                     Navigator.pushNamed(context, '/login').then((value) {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MainPage()));
+                          MaterialPageRoute(builder: (context) => home()));
                     });
                   },
                   child: Row(children: [

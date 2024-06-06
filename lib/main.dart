@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'Ara app',
       home: const Scaffold(
-        body: MainPage(),
+        body: home(),
       ),
     );
   }
