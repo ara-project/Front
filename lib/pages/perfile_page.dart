@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:front_ara/entitys/person.dart';
 
 class Perfil extends StatelessWidget {
@@ -34,7 +37,7 @@ class Perfil extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         usuario.urlPhoto.isEmpty
-                            ? Icon(
+                            ? const Icon(
                                 Icons.supervised_user_circle_rounded,
                                 size: 100,
                                 color: Colors.black,
@@ -46,108 +49,168 @@ class Perfil extends StatelessWidget {
                   ],
                 ),
               )),
-          Center(
+          Expanded(
               child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Text(
-              'Información del usuario',
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.blueAccent, background: Paint()),
-            ),
-          )),
-          Padding(
-            padding: const EdgeInsets.all(40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 40),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.credit_card,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(width: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: const EdgeInsets.all(40),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text("Cédula"),
-                        Text(usuario.cedula),
+                        const SizedBox(height: 40),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.credit_card,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(width: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Cédula",
+                                  style: Titulos(),
+                                ),
+                                Text(
+                                  usuario.cedula,
+                                  style: subtitulos(),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.person,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(width: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Nombre",
+                                  style: Titulos(),
+                                ),
+                                Text(
+                                  usuario.primerNombre +
+                                      ' ' +
+                                      usuario.segundoNombre,
+                                  style: subtitulos(),
+                                ),
+                                Text(
+                                  "Apellido",
+                                  style: Titulos(),
+                                ),
+                                Text(
+                                  usuario.primerApellido +
+                                      ' ' +
+                                      usuario.segundoApellido,
+                                  style: subtitulos(),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.email,
+                              color: Colors.black,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Correo Electrónico",
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 3,
+                                  style: Titulos(),
+                                ),
+                                Container(
+                                    width: 250,
+                                    child: Text(
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 3,
+                                      usuario.correo,
+                                      style: subtitulos(),
+                                    ))
+                              ],
+                            )
+                          ],
+                        )
                       ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.person,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(width: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Nombre"),
-                        Text(
-                            usuario.primerNombre + ' ' + usuario.segundoNombre),
-                        const Text("Apellido"),
-                        Text(usuario.primerApellido +
-                            ' ' +
-                            usuario.segundoApellido)
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.email,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Correo Electrónico"),
-                        Text(usuario.correo)
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
+                  )))
         ],
       )),
     );
   }
 
+// Metodo de estilo de textos
+
+  TextStyle Titulos() {
+    return TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
+  }
+
+  //Metodo de subtitulos
+  TextStyle subtitulos() {
+    return TextStyle(
+      fontSize: 20,
+      fontFamily: 'consolas',
+    );
+  }
+
   Widget _buildProductImage(String imageUrl) {
     try {
-      return Image.network(
-        height: height * 0.135,
-        width: width * 0.35,
-        imageUrl,
-        loadingBuilder: (BuildContext context, Widget child,
-            ImageChunkEvent? loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
-      );
+      return Container(
+          width: 200.0,
+          height: 200.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.black, width: 4.0),
+          ),
+          child: ClipOval(
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ));
     } catch (e) {
       return const SizedBox();
     }
   }
-}
+}/*
+Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent? loadingProgress) {
+              if (loadingProgress == null) {
+                return child;
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          )*/
