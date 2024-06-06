@@ -10,76 +10,84 @@ class PerfilW extends StatelessWidget {
     double screenHeigth = MediaQuery.of(context).size.height;
     Size tam = MediaQuery.of(context).size;
     return GestureDetector(
-        child: SizedBox(
-      height: screenHeigth * 0.9,
-      width: screenWidth * 0.9,
-      child: Stack(
-        children: [
-          Center(
-            child: Container(
-              width: screenWidth * 0.75,
-              height: screenHeigth * 0.35,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.orange,
-                  width: 2,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
+              child:LayoutBuilder(
+          builder: (context, constraints) {
+            double avatarRadius = constraints.maxWidth * 0.1;
+            double cardWidth = constraints.maxWidth * 0.8;
+
+            return Center(
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(top: avatarRadius),
+                    padding: EdgeInsets.all(16.0),
+                    width: cardWidth,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10.0,
+                          spreadRadius: 5.0,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        SizedBox(height: avatarRadius + 10), // Space for the CircleAvatar
+                        Text(
+                          'Ddavid16',
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Daniel Padilla',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          '1066866440',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'ddavidpadilla@unicesar.edu.co',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.amber,
+                      radius: avatarRadius,
+                      child: Icon(
+                        Icons.person,
+                        size: avatarRadius,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              child: Stack(
-                children: [
-                  
-                  Positioned(
-                      bottom: screenHeigth * 0.32,
-                      left: screenWidth * 0.225,
-                      child: Column(
-                        children: [
-                          Text(
-                            'Ddavid16',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: tam.width * 0.04,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text('Daniel Padilla',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: tam.width * 0.02,
-                              )),
-                        ],
-                      )),
-                  Positioned(
-                      bottom: screenHeigth * 0.2,
-                      left: screenWidth * 0.225,
-                      child: Text(
-                        '1066866440',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: tam.width * 0.03,
-                        ),
-                      )),
-                  Positioned(
-                    bottom: screenHeigth * 0.15,
-                    left: screenWidth * 0.1,
-                    child: Text('ddavidpadilla@unicesar.edu.co',
-                        style: TextStyle(
-                            color: Colors.black, fontSize: tam.width * 0.03)),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ));
+            );
+          },
+        ), );
   }
 }
