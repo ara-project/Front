@@ -50,7 +50,9 @@ class ProductsW extends StatelessWidget {
                           maxLines: 3,
                           textAlign: TextAlign.start,
                           style: const TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 20),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
@@ -68,7 +70,7 @@ class ProductsW extends StatelessWidget {
                             onPressed: () {
                               addProduct(products[index]);
                             },
-                            icon: const Icon(Icons.add))
+                            icon: const Icon(Icons.add, color: Colors.blue))
                       ],
                     ))
               ],
@@ -99,4 +101,10 @@ class ProductsW extends StatelessWidget {
       return const SizedBox();
     }
   }
+
+/*  String formatPrice(double price) {
+    final usdCurrency = Currency.create('USD', 2, symbol: '\$');
+    final money = Money.fromNum(price, isoCode: usdCurrency);
+    return money.format('S###,###.00');
+  }*/
 }

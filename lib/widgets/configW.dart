@@ -20,6 +20,111 @@ class configW extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Text(
+            "Menú del usuario",
+            style: _styleText(),
+          ),
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Historial de pagos",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.fade,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Formas de pago",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ), // Icono para "Información Usuario"
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Información Usuario",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ), // Icono para "Información Usuario"
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Mi presupuesto",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
           TextButton(
               onPressed: () async {
                 await closeSesion();
@@ -42,168 +147,6 @@ class configW extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          TextButton(
-            onPressed: () async {
-              await infoUser(context);
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 8),
-                Container(
-                  width: 120,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    "Información Usuario",
-                    style: _styleText(),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          TextButton(
-            onPressed: () async {
-              Navigator.pushNamed(context, '/resetPassword');
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.lock,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 8),
-                Container(
-                  width: 120,
-                  child: Text(
-                    overflow: TextOverflow.fade,
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    "Cambiar Contraseña",
-                    style: _styleText(),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          TextButton(
-            onPressed: () async {
-              await infoUser(context);
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ), // Icono para "Información Usuario"
-                SizedBox(width: 8),
-                Container(
-                  width: 120,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    "Información Usuario",
-                    style: _styleText(),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          TextButton(
-            onPressed: () async {
-              await infoUser(context);
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ), // Icono para "Información Usuario"
-                SizedBox(width: 8),
-                Container(
-                  width: 120,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    "Información Usuario",
-                    style: _styleText(),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          TextButton(
-            onPressed: () async {
-              await infoUser(context);
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ), // Icono para "Información Usuario"
-                SizedBox(width: 8),
-                Container(
-                  width: 120,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    "Información Usuario",
-                    style: _styleText(),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          TextButton(
-            onPressed: () async {
-              await infoUser(context);
-            },
-            child: Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ), // Icono para "Información Usuario"
-                SizedBox(width: 8),
-                Container(
-                  width: 120,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    "Información Usuario",
-                    style: _styleText(),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
         ],
       ),
     ));
@@ -220,6 +163,42 @@ class configW extends StatelessWidget {
         ),
       );
     } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text("Iniciar Sesión para habilitar esta opción"),
+            contentTextStyle: const TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: const Text(
+                  "Iniciar sesión",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "cerrar",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        },
+      );
       await closeSesion();
     }
   }
