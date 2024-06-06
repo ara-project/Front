@@ -54,6 +54,9 @@ class ProductWidget extends StatelessWidget {
     );
   }
 
+/**
+ * Cargar la imagen de un carrito de compras
+ */
   Widget _buildProductImage(String imageUrl) {
     try {
       return Image.network(

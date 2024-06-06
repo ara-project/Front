@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/person.dart';
 import 'package:front_ara/pages/home_page.dart';
-import 'package:front_ara/pages/main_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 
 //Widget para la configuracion del usuario
@@ -16,93 +15,198 @@ class configW extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: AlignmentDirectional.topStart,
-                end: AlignmentDirectional.bottomEnd,
-                stops: [0.7, 0.2],
-                colors: [Color.fromRGBO(236, 117, 35, 1), Colors.white])),
         child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextButton(
-                  onPressed: () async {
-                    await closeSesion();
-                    Navigator.pushNamed(context, '/login').then((value) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => home()));
-                    });
-                  },
-                  child: Row(children: [
-                    Icon(
-                      Icons.logout,
-                      color: Colors.black,
-                    ), // Icono para "Información Usuario"
-                    SizedBox(width: 8), // Espacio entre el icono y el texto
-                    Text(
-                      "Cerrar sesión",
-                      style: _styleText(),
-                    ),
-                  ])),
-              SizedBox(
-                height: 30,
-              ),
-              TextButton(
-                onPressed: () async {
-                  await infoUser(context);
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.person,
-                      color: Colors.black,
-                    ), // Icono para "Información Usuario"
-                    SizedBox(width: 8),
-                    Container(
-                      width: 120,
-                      child: Text(
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        textAlign: TextAlign.start,
-                        "Información Usuario",
-                        style: _styleText(),
-                      ),
-                    )
-                  ],
+      padding: const EdgeInsets.all(40),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TextButton(
+              onPressed: () async {
+                await closeSesion();
+                Navigator.pushNamed(context, '/login').then((value) {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => home()));
+                });
+              },
+              child: Row(children: [
+                Icon(
+                  Icons.logout,
+                  color: Colors.black,
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextButton(
-                onPressed: () async {
-                  Navigator.pushNamed(context, '/resetPassword');
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ), // Icono para "Cambiar Contraseña"
-                    SizedBox(width: 8), // Espacio entre el icono y el texto
-                    Container(
-                      width: 120,
-                      child: Text(
-                        overflow: TextOverflow.fade,
-                        maxLines: 3,
-                        textAlign: TextAlign.start,
-                        "Cambiar Contraseña",
-                        style: _styleText(),
-                      ),
-                    )
-                  ],
+                SizedBox(width: 8),
+                Text(
+                  "Cerrar sesión",
+                  style: _styleText(),
                 ),
-              ),
-            ],
+              ])),
+          SizedBox(
+            height: 30,
           ),
-        ));
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Información Usuario",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pushNamed(context, '/resetPassword');
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.fade,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Cambiar Contraseña",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ), // Icono para "Información Usuario"
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Información Usuario",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ), // Icono para "Información Usuario"
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Información Usuario",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ), // Icono para "Información Usuario"
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Información Usuario",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          TextButton(
+            onPressed: () async {
+              await infoUser(context);
+            },
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ), // Icono para "Información Usuario"
+                SizedBox(width: 8),
+                Container(
+                  width: 120,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    "Información Usuario",
+                    style: _styleText(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+        ],
+      ),
+    ));
   }
 
   //Informacion del usuario
