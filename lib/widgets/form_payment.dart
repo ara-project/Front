@@ -83,6 +83,7 @@ class CustomFormDialog extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.pushNamed(context, '/shippingAdress');
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFDB3022)),
