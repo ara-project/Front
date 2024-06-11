@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/widgets/form_payment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentMethod extends StatefulWidget {
   const PaymentMethod({super.key});
@@ -260,7 +261,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return toogleFormPay(_type);
+                            return toogleFormPay(_type, subtotal);
                           },
                         )
                       },
@@ -288,42 +289,42 @@ class _PaymentMethodState extends State<PaymentMethod> {
   }
 }
 
-CustomFormDialog toogleFormPay(int value) {
+CustomFormDialog toogleFormPay(int value, subtotal) {
   switch (value) {
     case 1:
       return CustomFormDialog(
-        titleBar: "Nequi",
-        firstInput: "Numero de cuenta",
-        secondInput: "Nombre del titular",
-        thirdInput: "Codigo dinamico",
-        fourthInput: "Cedula",
-        fifthInput: "Otro campo requerido",
-      );
+          titleBar: "Nequi",
+          firstInput: "Numero de cuenta",
+          secondInput: "Nombre del titular",
+          thirdInput: "Codigo dinamico",
+          fourthInput: "Cedula",
+          fifthInput: "Otro campo requerido",
+          subtotal: subtotal);
     case 2:
       return CustomFormDialog(
-        titleBar: "Tarjeta de credito",
-        firstInput: "Numero de cuenta",
-        secondInput: "Nombre del titular",
-        thirdInput: "Fecha de vencimiento",
-        fourthInput: "CVV",
-        fifthInput: "Numero de cuotas",
-      );
+          titleBar: "Tarjeta de credito",
+          firstInput: "Numero de cuenta",
+          secondInput: "Nombre del titular",
+          thirdInput: "Fecha de vencimiento",
+          fourthInput: "CVV",
+          fifthInput: "Numero de cuotas",
+          subtotal: subtotal);
     case 3:
       return CustomFormDialog(
-        titleBar: "Ahorro a la mano",
-        firstInput: "Numero de cuenta",
-        secondInput: "Nombre del titular",
-        thirdInput: "Codigo dinamico",
-        fourthInput: "Cedula",
-        fifthInput: "Otro campo requerido",
-      );
+          titleBar: "Ahorro a la mano",
+          firstInput: "Numero de cuenta",
+          secondInput: "Nombre del titular",
+          thirdInput: "Codigo dinamico",
+          fourthInput: "Cedula",
+          fifthInput: "Otro campo requerido",
+          subtotal: subtotal);
   }
   return CustomFormDialog(
-    titleBar: "Default",
-    firstInput: "Default",
-    secondInput: "Default",
-    thirdInput: "Default",
-    fourthInput: "Default",
-    fifthInput: "Default",
-  );
+      titleBar: "Default",
+      firstInput: "Default",
+      secondInput: "Default",
+      thirdInput: "Default",
+      fourthInput: "Default",
+      fifthInput: "Default",
+      subtotal: subtotal);
 }

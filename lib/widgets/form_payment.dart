@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:front_ara/services/personasS.dart';
 
 class CustomFormDialog extends StatelessWidget {
-  final titleBar, firstInput, secondInput, thirdInput, fourthInput, fifthInput;
+  final titleBar,
+      firstInput,
+      secondInput,
+      thirdInput,
+      fourthInput,
+      fifthInput,
+      subtotal;
   const CustomFormDialog(
       {super.key,
       required this.titleBar,
@@ -10,7 +16,8 @@ class CustomFormDialog extends StatelessWidget {
       required this.secondInput,
       required this.thirdInput,
       required this.fourthInput,
-      required this.fifthInput});
+      required this.fifthInput,
+      required this.subtotal});
   @override
   Widget build(BuildContext context) {
     PersonasS personas = PersonasS();
@@ -83,7 +90,8 @@ class CustomFormDialog extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.pushNamed(context, '/shippingAdress');
+                  Navigator.pushNamed(context, '/shippingAdress',
+                      arguments: subtotal);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFDB3022)),

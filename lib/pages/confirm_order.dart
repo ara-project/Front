@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/entitys/resume_payment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OrderConfirm extends StatelessWidget {
+class OrderConfirm extends StatefulWidget {
   const OrderConfirm({super.key});
 
   @override
+  _OrderConfirmState createState() => _OrderConfirmState();
+}
+
+class _OrderConfirmState extends State<OrderConfirm> {
+  late ResumePaiment resumePayment = ResumePaiment(
+      name: 'name',
+      address: 'address',
+      location: 'location',
+      cardNumber: 'cardNumber',
+      subtotal: 0.0,
+      total: 0.0);
+  @override
   Widget build(BuildContext context) {
-    var subtotal = ModalRoute.of(context)?.settings.arguments.toString() ?? "";
-    var total = (double.tryParse(subtotal) ?? 0) + 5000;
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is ResumePaiment) {
+      resumePayment = args;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Confirmar Compra"),
@@ -33,14 +49,16 @@ class OrderConfirm extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 100,
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(19),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 4,
-                            spreadRadius: 2)
-                      ]),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(19),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        spreadRadius: 2,
+                      )
+                    ],
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,18 +66,18 @@ class OrderConfirm extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Vamos a ver que tal',
+                            resumePayment.name,
                             style: TextStyle(fontSize: 16),
                           ),
-                          button(context, '/shippingAdress')
+                          button(context, '/shippingAdress'),
                         ],
                       ),
                       Text(
-                        "Calle 23 #6-18",
+                        resumePayment.address,
                         style: TextStyle(fontSize: 16),
                       ),
                       Text(
-                        "Barrio Cañaguate",
+                        resumePayment.location,
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -74,7 +92,7 @@ class OrderConfirm extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
                     ),
-                    button(context, '/selectPayment')
+                    button(context, '/selectPayment'),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -84,18 +102,20 @@ class OrderConfirm extends StatelessWidget {
                       height: 50,
                       width: 80,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4,
-                                spreadRadius: 2)
-                          ]),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4,
+                            spreadRadius: 2,
+                          )
+                        ],
+                      ),
                       child: Image.asset("MasterCard_Logo.png"),
                     ),
                     SizedBox(width: 20),
-                    Text('***** *** *** 2343')
+                    Text('***** *** *** 2343'),
                   ],
                 ),
                 SizedBox(height: 40),
@@ -110,14 +130,16 @@ class OrderConfirm extends StatelessWidget {
                       height: 60,
                       width: 100,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4,
-                                spreadRadius: 2)
-                          ]),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4,
+                            spreadRadius: 2,
+                          )
+                        ],
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -133,25 +155,28 @@ class OrderConfirm extends StatelessWidget {
                       height: 60,
                       width: 100,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4,
-                                spreadRadius: 2)
-                          ]),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4,
+                            spreadRadius: 2,
+                          )
+                        ],
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             'Domicilio',
                             style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFDB3022)),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFDB3022),
+                            ),
                           ),
-                          Text('20-30 min')
+                          Text('20-30 min'),
                         ],
                       ),
                     ),
@@ -164,17 +189,19 @@ class OrderConfirm extends StatelessWidget {
                     Text(
                       "Sub-Total",
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
                     ),
                     Text(
-                      subtotal,
+                      resumePayment.subtotal.toString(),
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey),
-                    )
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 15),
@@ -184,17 +211,19 @@ class OrderConfirm extends StatelessWidget {
                     Text(
                       "Costo de envio",
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
                     ),
                     Text(
                       "5000",
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey),
-                    )
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 ),
                 Divider(
@@ -207,17 +236,19 @@ class OrderConfirm extends StatelessWidget {
                     Text(
                       "Total de compra",
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
                     ),
                     Text(
-                      total.toString(),
+                      resumePayment.total.toString(),
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFFDB3022)),
-                    )
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFFDB3022),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 70),
@@ -226,8 +257,9 @@ class OrderConfirm extends StatelessWidget {
                     Navigator.pushNamed(context, '/successPay');
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFDB3022),
-                      minimumSize: Size(double.infinity, 50)),
+                    backgroundColor: Color(0xFFDB3022),
+                    minimumSize: Size(double.infinity, 50),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -237,12 +269,21 @@ class OrderConfirm extends StatelessWidget {
                       )
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget button(BuildContext context, String route) {
+    return IconButton(
+      icon: Icon(Icons.edit, color: Color(0xFFDB3022)),
+      onPressed: () {
+        Navigator.pushNamed(context, route);
+      },
     );
   }
 }
