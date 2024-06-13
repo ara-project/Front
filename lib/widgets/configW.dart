@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_ara/controllers/personaC.dart';
 import 'package:front_ara/entitys/person.dart';
+import 'package:front_ara/pages/history_payments.dart';
 import 'package:front_ara/pages/home_page.dart';
 import 'package:front_ara/pages/perfile_page.dart';
 
@@ -29,7 +30,12 @@ class configW extends StatelessWidget {
           ),
           TextButton(
             onPressed: () async {
-              await infoUser(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => history_payment(),
+                ),
+              );
             },
             child: Row(
               children: [

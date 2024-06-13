@@ -114,7 +114,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                           )
                         ],
                       ),
-                      child: Image.asset("MasterCard_Logo.png"),
+                      child: Image.asset("assets/MasterCard_Logo.png"),
                     ),
                     SizedBox(width: 20),
                     Text('***** *** *** 2343'),
@@ -146,7 +146,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Image.asset(
-                            "araEnvios.png",
+                            "assets/araEnvios.png",
                             height: 50,
                           ),
                         ],
