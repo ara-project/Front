@@ -8,6 +8,7 @@ import 'package:front_ara/pages/payment_method.dart';
 import 'package:front_ara/pages/shipping_adress.dart';
 import 'package:front_ara/pages/confirm_order.dart';
 import 'package:front_ara/pages/pay_succesfull.dart';
+import 'package:front_ara/pages/expenses.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         '/selectPayment': (context) => const PaymentMethod(),
         '/shippingAdress': (context) => const ShippingAddress(),
         '/resumeShipping': (context) => const OrderConfirm(),
-        '/successPay': (context) => const PaySuccesfull()
+        '/successPay': (context) => const PaySuccesfull(),
+        '/expense': (context) => const SpendingTrackerScreen()
       },
       title: 'Ara app',
       home: const Scaffold(
