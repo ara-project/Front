@@ -12,9 +12,10 @@ class Reset extends StatefulWidget {
 
 class _ResetPasswordState extends State<Reset> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _newPasswordController = TextEditingController();
-  TextEditingController _confirmNewPasswordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmNewPasswordController =
+      TextEditingController();
   personaC resetPasswordC = personaC();
   bool _obscureText = true;
   @override

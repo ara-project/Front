@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/entitys/order.dart';
 import 'package:front_ara/entitys/product.dart';
 import 'package:front_ara/pages/detail_page.dart';
 import 'package:front_ara/widgets/ProductWidget.dart';
+import 'package:front_ara/controllers/order_c.dart';
 import 'dart:developer' as developer;
 import 'package:money2/money2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShoppingCart extends StatefulWidget {
   final Map<Product, int> cart;
@@ -14,6 +17,7 @@ class ShoppingCart extends StatefulWidget {
 
 class _ShoppingCartState extends State<ShoppingCart> {
   String total = '';
+  OrderC order = OrderC();
   @override
   void initState() {
     totalM();
@@ -161,9 +165,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
             widget.cart.isEmpty
                 ? SizedBox()
                 : TextButton(
-                    onPressed: () => {
-                      Navigator.pushNamed(context, '/selectPayment',
-                          arguments: totalContext)
+                    onPressed: () async {
+                      bool expression = await _buyProduct();
+                      if (expression) {
+                        Navigator.pushNamed(context, '/selectPayment',
+                            arguments: totalContext);
+                      } else {
+                        print("Error al comprar el producto");
+                      }
                     },
                     style: TextButton.styleFrom(
                       alignment: Alignment
@@ -200,5 +209,34 @@ class _ShoppingCartState extends State<ShoppingCart> {
     total =
         Money.parseWithCurrency(subtotal.toString(), Currency.create('USD', 2))
             .format('S###,###');
+  }
+
+  //Ingresar productos para enviarlos a la base de datos
+  List<Map<String, dynamic>> listProduct() {
+    List<Map<String, dynamic>> list = [];
+    widget.cart.forEach((product, quantity) {
+      Map<String, dynamic> object = {
+        'idProduct': product.idProduct,
+        'amount': quantity,
+        'priceTaxes': product.price * quantity
+      };
+      list.add(object);
+    });
+    return list;
+  }
+
+  //Enviar peticion de producto
+  Future<bool> _buyProduct() async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token')!;
+    List<Map<String, dynamic>> list = listProduct();
+    Order orderComplete = Order(listProduct: list, token: token);
+    var response = await order.createOrder(orderComplete);
+    prefs.setString('idOrder', response);
+    if (response != '') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

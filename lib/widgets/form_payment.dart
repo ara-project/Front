@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:front_ara/services/personasS.dart';
 
 class CustomFormDialog extends StatelessWidget {
-  final titleBar, firstInput, secondInput, thirdInput, fourthInput, fifthInput;
+  final titleBar,
+      firstInput,
+      secondInput,
+      thirdInput,
+      fourthInput,
+      fifthInput,
+      subtotal;
+  final TextEditingController firstController;
+  final TextEditingController secondController;
+  final TextEditingController thirdController;
+  final TextEditingController fourthController;
+  final TextEditingController fifthController;
+  final Future<bool> Function() saveFunction;
   const CustomFormDialog(
       {super.key,
       required this.titleBar,
@@ -10,7 +22,14 @@ class CustomFormDialog extends StatelessWidget {
       required this.secondInput,
       required this.thirdInput,
       required this.fourthInput,
-      required this.fifthInput});
+      required this.fifthInput,
+      required this.subtotal,
+      required this.firstController,
+      required this.secondController,
+      required this.thirdController,
+      required this.fourthController,
+      required this.fifthController,
+      required this.saveFunction});
   @override
   Widget build(BuildContext context) {
     PersonasS personas = PersonasS();
@@ -25,10 +44,11 @@ class CustomFormDialog extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                controller: firstController,
                 decoration: returnInputDecoration(firstInput),
-                validator: (valor) {
-                  if (valor != null) {
-                    return personas.validateUser(valor);
+                validator: (firstController) {
+                  if (firstController != null) {
+                    return personas.validateUser(firstController);
                   } else {
                     return "El campo esta vacio";
                   }
@@ -36,10 +56,11 @@ class CustomFormDialog extends StatelessWidget {
               ),
               SizedBox(height: 15),
               TextFormField(
+                controller: secondController,
                 decoration: returnInputDecoration(secondInput),
-                validator: (valor) {
-                  if (valor != null) {
-                    return personas.validateUser(valor);
+                validator: (secondController) {
+                  if (secondController != null) {
+                    return personas.validateUser(secondController);
                   } else {
                     return "El campo esta vacio";
                   }
@@ -47,10 +68,11 @@ class CustomFormDialog extends StatelessWidget {
               ),
               SizedBox(height: 15),
               TextFormField(
+                controller: thirdController,
                 decoration: returnInputDecoration(thirdInput),
-                validator: (valor) {
-                  if (valor != null) {
-                    return personas.validateUser(valor);
+                validator: (thirdController) {
+                  if (thirdController != null) {
+                    return personas.validateUser(thirdController);
                   } else {
                     return "El campo esta vacio";
                   }
@@ -58,10 +80,11 @@ class CustomFormDialog extends StatelessWidget {
               ),
               SizedBox(height: 15),
               TextFormField(
+                controller: fourthController,
                 decoration: returnInputDecoration(fourthInput),
-                validator: (valor) {
-                  if (valor != null) {
-                    return personas.validateUser(valor);
+                validator: (fourthController) {
+                  if (fourthController != null) {
+                    return personas.validateUser(fourthController);
                   } else {
                     return "El campo esta vacio";
                   }
@@ -70,10 +93,11 @@ class CustomFormDialog extends StatelessWidget {
               SizedBox(height: 15),
               if (titleBar != "Nequi" && titleBar != "Ahorro a la mano")
                 TextFormField(
+                  controller: fifthController,
                   decoration: returnInputDecoration(fifthInput),
-                  validator: (valor) {
-                    if (valor != null) {
-                      return personas.validateUser(valor);
+                  validator: (fifthController) {
+                    if (fifthController != null) {
+                      return personas.validateUser(fifthController);
                     } else {
                       return "El campo esta vacio";
                     }
@@ -81,9 +105,15 @@ class CustomFormDialog extends StatelessWidget {
                 ),
               SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.pushNamed(context, '/shippingAdress');
+                onPressed: () async {
+                  bool expresion = await saveFunction();
+                  if (expresion) {
+                    Navigator.of(context).pop();
+                    Navigator.pushNamed(context, '/shippingAdress',
+                        arguments: subtotal);
+                  } else {
+                    print("Error al comprar el producto");
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFDB3022)),

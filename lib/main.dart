@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const home(),
         '/resetPassword': (context) => const Reset(),
         '/selectPayment': (context) => const PaymentMethod(),
-        '/shippingAdress': (context) => const ShippingAdress(),
+        '/shippingAdress': (context) => const ShippingAddress(),
         '/resumeShipping': (context) => const OrderConfirm(),
         '/successPay': (context) => const PaySuccesfull()
       },
