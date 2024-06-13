@@ -64,23 +64,26 @@ class oauthC {
   Future<String> Register() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-
       if (googleUser != null) {
+        developer.log(googleUser.photoUrl!.toString());
         var name = googleUser.displayName?.split(' ');
         Personas p = Personas(
             cedula: ' ',
-            primerNombre: name![0],
-            segundoNombre: name[1],
-            primerApellido: name[2],
-            segundoApellido: name[3],
+            primerNombre:
+                name != null && name.isNotEmpty ? (name[0] ?? '') : '',
+            segundoNombre:
+                name != null && name.length > 1 ? (name[1] ?? '') : '',
+            primerApellido:
+                name != null && name.length > 2 ? (name[2] ?? '') : '',
+            segundoApellido:
+                name != null && name.length > 3 ? (name[3] ?? '') : '',
             correo: googleUser.email,
-            urlPhoto: googleUser.photoUrl ?? '',
+            urlPhoto: googleUser.photoUrl != null
+                ? googleUser.photoUrl.toString()
+                : '',
             contrasena: '',
             usuario: '');
         p.identification = googleUser.id;
-        p.urlPhoto = googleUser.photoUrl ?? '';
-        developer.log(googleUser.photoUrl!.toString());
-
         return await personasC.registerG(p);
       } else {
         developer.log('Inicio de sesión con Google cancelado.');

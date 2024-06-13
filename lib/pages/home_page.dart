@@ -171,7 +171,9 @@ class _homeState extends State<home> {
                                       builder: (BuildContext context) {
                                         return Container(
                                           child: Center(
-                                            child: Text(res),
+                                            child: Text(res == '-1'
+                                                ? 'No se leyò correctamente el producto.'
+                                                : 'El producto ${res} no se encuentra en lanase de datos.'),
                                           ),
                                         );
                                       });
