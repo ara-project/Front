@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/payment_c.dart';
+import 'package:front_ara/entitys/payment.dart';
 import 'package:front_ara/widgets/form_payment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentMethod extends StatefulWidget {
   const PaymentMethod({super.key});
@@ -12,7 +15,13 @@ class _PaymentMethodState extends State<PaymentMethod> {
   void _handleRadio(Object? e) => setState(() {
         _type = e as int;
       });
-
+  final TextEditingController _accountNumber = TextEditingController();
+  final TextEditingController _accountHolder = TextEditingController();
+  final TextEditingController _cvc = TextEditingController();
+  final TextEditingController _identification = TextEditingController();
+  final TextEditingController _paymentInstallments = TextEditingController();
+  var total = 0.0;
+  PaymentC payment = PaymentC();
   @override
   void initState() {
     super.initState();
@@ -22,7 +31,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
   Widget build(BuildContext context) {
     Size sise = MediaQuery.of(context).size;
     var subtotal = ModalRoute.of(context)?.settings.arguments.toString() ?? "";
-    var total = (double.tryParse(subtotal) ?? 0) + 5000;
+    total = (double.tryParse(subtotal) ?? 0) + 5000;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Seleccionar metodo de compra'),
@@ -260,7 +269,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return toogleFormPay(_type);
+                            return toogleFormPay(_type, subtotal);
                           },
                         )
                       },
@@ -286,44 +295,92 @@ class _PaymentMethodState extends State<PaymentMethod> {
           ),
         ));
   }
-}
 
-CustomFormDialog toogleFormPay(int value) {
-  switch (value) {
-    case 1:
-      return CustomFormDialog(
-        titleBar: "Nequi",
-        firstInput: "Numero de cuenta",
-        secondInput: "Nombre del titular",
-        thirdInput: "Codigo dinamico",
-        fourthInput: "Cedula",
-        fifthInput: "Otro campo requerido",
-      );
-    case 2:
-      return CustomFormDialog(
-        titleBar: "Tarjeta de credito",
-        firstInput: "Numero de cuenta",
-        secondInput: "Nombre del titular",
-        thirdInput: "Fecha de vencimiento",
-        fourthInput: "CVV",
-        fifthInput: "Numero de cuotas",
-      );
-    case 3:
-      return CustomFormDialog(
-        titleBar: "Ahorro a la mano",
-        firstInput: "Numero de cuenta",
-        secondInput: "Nombre del titular",
-        thirdInput: "Codigo dinamico",
-        fourthInput: "Cedula",
-        fifthInput: "Otro campo requerido",
-      );
+  CustomFormDialog toogleFormPay(int value, subtotal) {
+    switch (value) {
+      case 1:
+        return CustomFormDialog(
+            titleBar: "Nequi",
+            firstInput: "Numero de cuenta",
+            secondInput: "Nombre del titular",
+            thirdInput: "Codigo dinamico",
+            fourthInput: "Cedula",
+            fifthInput: "Otro campo requerido",
+            subtotal: subtotal,
+            firstController: _accountNumber,
+            secondController: _accountHolder,
+            thirdController: _cvc,
+            fourthController: _identification,
+            fifthController: _paymentInstallments,
+            saveFunction: createPayment);
+      case 2:
+        return CustomFormDialog(
+            titleBar: "Tarjeta de credito",
+            firstInput: "Numero de cuenta",
+            secondInput: "Nombre del titular",
+            thirdInput: "Fecha de vencimiento",
+            fourthInput: "CVV",
+            fifthInput: "Numero de cuotas",
+            subtotal: subtotal,
+            firstController: _accountNumber,
+            secondController: _accountHolder,
+            thirdController: _cvc,
+            fourthController: _identification,
+            fifthController: _paymentInstallments,
+            saveFunction: createPayment);
+      case 3:
+        return CustomFormDialog(
+            titleBar: "Ahorro a la mano",
+            firstInput: "Numero de cuenta",
+            secondInput: "Nombre del titular",
+            thirdInput: "Codigo dinamico",
+            fourthInput: "Cedula",
+            fifthInput: "Otro campo requerido",
+            subtotal: subtotal,
+            firstController: _accountNumber,
+            secondController: _accountHolder,
+            thirdController: _cvc,
+            fourthController: _identification,
+            fifthController: _paymentInstallments,
+            saveFunction: createPayment);
+    }
+    return CustomFormDialog(
+        titleBar: "Default",
+        firstInput: "Default",
+        secondInput: "Default",
+        thirdInput: "Default",
+        fourthInput: "Default",
+        fifthInput: "Default",
+        subtotal: subtotal,
+        firstController: _accountNumber,
+        secondController: _accountHolder,
+        thirdController: _cvc,
+        fourthController: _identification,
+        fifthController: _paymentInstallments,
+        saveFunction: createPayment);
   }
-  return CustomFormDialog(
-    titleBar: "Default",
-    firstInput: "Default",
-    secondInput: "Default",
-    thirdInput: "Default",
-    fourthInput: "Default",
-    fifthInput: "Default",
-  );
+
+  Future<bool> createPayment() async {
+    final prefs = await SharedPreferences.getInstance();
+    String idOrder = prefs.getString('idOrder')!;
+    String token = prefs.getString('token')!;
+    Payment pay = Payment(
+        token: token,
+        idOrder: idOrder,
+        cardNumber: _accountNumber.text,
+        accountHolder: _accountHolder.text,
+        cardExpiration: _identification.text,
+        securityCode: _cvc.text,
+        paymentInstallments: int.parse(_paymentInstallments.text),
+        idMethod: _type,
+        totalPaid: total);
+    var response = await payment.createPayment(pay);
+    prefs.setString('idPayment', response);
+    if (response != '') {
+      print(prefs.getString('idPayment')!);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
