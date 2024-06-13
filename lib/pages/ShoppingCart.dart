@@ -232,7 +232,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
     List<Map<String, dynamic>> list = listProduct();
     Order orderComplete = Order(listProduct: list, token: token);
     var response = await order.createOrder(orderComplete);
-    if (response == "Guardado con exito") {
+    prefs.setString('idOrder', response);
+    if (response != '') {
       return true;
     } else {
       return false;

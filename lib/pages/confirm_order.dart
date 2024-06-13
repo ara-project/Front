@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_ara/controllers/payment_c.dart';
 import 'package:front_ara/entitys/resume_payment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +18,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
       cardNumber: 'cardNumber',
       subtotal: 0.0,
       total: 0.0);
+  PaymentC request = PaymentC();
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
@@ -253,8 +255,11 @@ class _OrderConfirmState extends State<OrderConfirm> {
                 ),
                 SizedBox(height: 70),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/successPay');
+                  onPressed: () async {
+                    var response = await request.completePayOrder();
+                    if (response == 'Correcto') {
+                      Navigator.pushNamed(context, '/successPay');
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFDB3022),
