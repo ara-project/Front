@@ -371,7 +371,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
         accountHolder: _accountHolder.text,
         cardExpiration: _identification.text,
         securityCode: _cvc.text,
-        paymentInstallments: int.parse(_paymentInstallments.text),
+        paymentInstallments: _paymentInstallments.text.isNotEmpty
+            ? int.parse(_paymentInstallments.text)
+            : 0,
         idMethod: _type,
         totalPaid: total);
     var response = await payment.createPayment(pay);
